@@ -11,7 +11,24 @@
 		5244E1C21CDBB7B900D96E87 /* RegexHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5244E1B71CDBB7B900D96E87 /* RegexHelper.framework */; };
 		5244E1C71CDBB7B900D96E87 /* RegexHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */; };
 		5244E1D21CDBB80200D96E87 /* RegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244E1D11CDBB80200D96E87 /* RegexHelper.swift */; };
+		527478B41CDD3A6F005EE33C /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 527478B21CDD3A6F005EE33C /* LICENSE.md */; };
+		527478B51CDD3A6F005EE33C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 527478B31CDD3A6F005EE33C /* README.md */; };
+		52A412C81CDD3C0E00DC10D5 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 52A412C61CDD3C0E00DC10D5 /* LICENSE.md */; };
+		52A412C91CDD3C0E00DC10D5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 52A412C71CDD3C0E00DC10D5 /* README.md */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		52A412C51CDD3BF200DC10D5 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.md";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		5244E1C31CDBB7B900D96E87 /* PBXContainerItemProxy */ = {
@@ -31,6 +48,10 @@
 		5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelperTests.swift; sourceTree = "<group>"; };
 		5244E1C81CDBB7B900D96E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5244E1D11CDBB80200D96E87 /* RegexHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexHelper.swift; sourceTree = "<group>"; };
+		527478B21CDD3A6F005EE33C /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = LICENSE.md; path = /Users/lmelahn/Documents/Projects/RegexHelper/LICENSE.md; sourceTree = "<absolute>"; };
+		527478B31CDD3A6F005EE33C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = /Users/lmelahn/Documents/Projects/RegexHelper/README.md; sourceTree = "<absolute>"; };
+		52A412C61CDD3C0E00DC10D5 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		52A412C71CDD3C0E00DC10D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +76,8 @@
 		5244E1AD1CDBB7B900D96E87 = {
 			isa = PBXGroup;
 			children = (
+				52A412C61CDD3C0E00DC10D5 /* LICENSE.md */,
+				52A412C71CDD3C0E00DC10D5 /* README.md */,
 				5244E1B91CDBB7B900D96E87 /* RegexHelper */,
 				5244E1C51CDBB7B900D96E87 /* RegexHelperTests */,
 				5244E1B81CDBB7B900D96E87 /* Products */,
@@ -113,6 +136,7 @@
 				5244E1B51CDBB7B900D96E87 /* Resources */,
 			);
 			buildRules = (
+				52A412C51CDD3BF200DC10D5 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -197,6 +221,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A412C81CDD3C0E00DC10D5 /* LICENSE.md in Sources */,
+				527478B51CDD3A6F005EE33C /* README.md in Sources */,
+				52A412C91CDD3C0E00DC10D5 /* README.md in Sources */,
+				527478B41CDD3A6F005EE33C /* LICENSE.md in Sources */,
 				5244E1D21CDBB80200D96E87 /* RegexHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +416,7 @@
 				5244E1CD1CDBB7B900D96E87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5244E1CE1CDBB7B900D96E87 /* Build configuration list for PBXNativeTarget "RegexHelperTests" */ = {
 			isa = XCConfigurationList;
@@ -396,6 +425,7 @@
 				5244E1D01CDBB7B900D96E87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

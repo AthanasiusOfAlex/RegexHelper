@@ -3,7 +3,9 @@
 //  RegexHelperTests
 //
 //  Created by Louis Melahn on 5/5/16.
-//  Copyright © 2016 Louis Melahn. All rights reserved.
+//  Copyright © 2016 Louis Melahn.
+//
+//  This file is licensed under the MIT license.
 //
 
 import XCTest
