@@ -370,7 +370,7 @@ extension Matches : SequenceType {
 
 public struct Match {
     
-    var pre: String {
+    public var pre: String {
         
         let range = input.swiftRange(match.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
@@ -379,7 +379,7 @@ public struct Match {
         
     }
     
-    var post: String {
+    public var post: String {
         
         let range = input.swiftRange(match.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
@@ -388,7 +388,7 @@ public struct Match {
         
     }
     
-    var hit: String {
+    public var hit: String {
         
         let range = input.swiftRange(match.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
@@ -426,6 +426,7 @@ extension Match : CollectionType {
 }
 
 extension Match : SequenceType {
+    
     public struct Generator : GeneratorType {
         
         public typealias Element = String
@@ -453,4 +454,5 @@ extension Match : SequenceType {
     public func generate() -> Generator {
         return Generator(match: self, endIndex: count)
     }
+    
 }
