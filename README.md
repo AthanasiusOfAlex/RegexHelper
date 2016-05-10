@@ -1,5 +1,5 @@
 # RegexHelper
-A Swifter framwork to simplify using regular expressions
+A Swift framwork to simplify using regular expressions
 
 # Installation
 The simplest way to install this project is simply to copy the file `RegexHelper.swift` and include it in your project.
