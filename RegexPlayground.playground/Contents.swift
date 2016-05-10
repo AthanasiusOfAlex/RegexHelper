@@ -13,6 +13,17 @@ extension String {
         return []
         
     }
+    
+}
+
+for match in "Hello, world".matches("([er]+)(l+)([do]+)") {
+    print(match.hit)
+}
+print("=======")
+let match = "Hello, world".matches("([er]+)(l+)([do]+)").first!
+
+for submatch in match {
+    print(submatch)
 }
 
 //extension String {
@@ -56,5 +67,3 @@ extension String {
 //}
 //
 //"asfasdf".splitter("as")
-
-"kjhlkjhkljh"

@@ -54,21 +54,21 @@ Note each match is represented by a Match object. This object, in turn, represen
  - `match.pre` represents all the text preceding the matched text.
  - `match.post` represents all the text following the matched text.
 
-For example, if the pattern `([er]+)(l+)([do]+)` is used against the string `Hello, world`, the matches will be `ello` and `rld` (represented by `matches[0]` and `matches[1]`, respectively). Suppose that we let `match = matches[0]` (or `matches.first`).
+For example, if the pattern `([er]+)(l+)([do]+)` is used against the string `Hello, world`, the matches will be `ello` and `rld` (represented by `matches[0]` and `matches[1]`, respectively). Suppose that we let `match = matches[0]` (or `matches.first!`).
 
 In that case, `match.hit` will be, of course, `ello`; `match.pre` will be `H`, and `match.post` will be `, world`.
 
-The submatches may also be cycled through. For instance,
+The submatches may also be cycled through. For instance, consider the following code (which represents the same case as the example):
 
 ```swift
-let match = "Hello, world".matches.first
+let match = "Hello, world".matches("([er]+)(l+)([do]+)").first!
 
 for submatch in match {
   print(submatch)
 }
 ```
 
-will print
+It will print
 
 ```
 ello
