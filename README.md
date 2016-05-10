@@ -48,6 +48,37 @@ for match in matches {
 }
 ```
 
+Note each match is represented by a Match object. This object, in turn, represents the text that is matched by the pattern as follows:
+
+ - `match.hit` represents the text that matches the entire pattern.
+ - `match.pre` represents all the text preceding the matched text.
+ - `match.post` represents all the text following the matched text.
+
+For example, if the pattern `([er]+)(l+)([do]+)` is used against the string `Hello, world`, the matches will be `ello` and `rld` (represented by `matches[0]` and `matches[1]`, respectively). Suppose that we let `match = matches[0]` (or `matches.first`).
+
+In that case, `match.hit` will be, of course, `ello`; `match.pre` will be `H`, and `match.post` will be `, world`.
+
+The submatches may also be cycled through. For instance,
+
+```swift
+let match = "Hello, world".matches.first
+
+for submatch in match {
+  print(submatch)
+}
+```
+
+will print
+
+```
+ello
+e
+ll
+o
+```
+
+As can be seen, the first submatch, `match[0]` or `match.first` is identical to `match.hit`—in other words, it is the entire match. The next submatch, `match[1]`, returns the text matched by the pattern inside the first set of parentheses, `[er]+`, and so on.
+
 ## String.isMatchedBy(pattern:)
 
 Returns true if the pattern matches the string at least once, and false otherwise. Again, there are overloads for using NSRegularExpression objects and all the corresponding options. For instance,
