@@ -467,3 +467,90 @@ extension Match: CustomStringConvertible {
     }
     
 }
+
+// MARK - an extension to String that provides a regex-based splitter.
+extension String {
+    
+    public struct Splitter: SequenceType {
+        
+        let input: String
+        let separator: String
+        
+        public init(input: String, separator: String) {
+            
+            self.input = input
+            self.separator = separator
+            
+        }
+        
+        
+        public struct Generator : GeneratorType {
+            
+            public typealias Element = String
+            
+            let separator: String
+            var input: String?
+            
+            init(input: String, separator: String) {
+                
+                self.input = input
+                self.separator = separator
+                
+            }
+            
+            mutating public func next() -> Element? {
+                
+                if let (first, rest) = input?.splitFirst(separator) {
+                    
+                    if let first = first {
+                        
+                        input = rest
+                        return first
+                        
+                    } else {
+                        
+                        input = nil
+                        return rest
+                        
+                    }
+                    
+                } else {
+                    
+                    return nil
+                    
+                }
+            }
+        }
+        
+        public func generate() -> Generator {
+            
+            return Generator(input: input, separator: separator)
+            
+        }
+        
+    }
+    
+    func splitFirst(separator: String) -> (String?, String?) {
+        
+        if let match = self.matches(separator).first {
+            
+            let pre = match.pre
+            let post = match.post
+            
+            return (pre=="" ? nil : pre, post=="" ? nil : post)
+            
+        } else {
+            
+            return (nil, self=="" ? nil : self)
+            
+        }
+    }
+    
+    public func split(separator: String) -> String.Splitter {
+        
+        return String.Splitter(input: self, separator: separator)
+        
+    }
+    
+}
+
