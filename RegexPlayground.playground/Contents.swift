@@ -5,16 +5,6 @@ import RegexHelper
 
 var str = "Hello, playground\nWe hold these? Truths to be self-evident."
 
-extension Match: CustomStringConvertible {
-    
-    public var description: String {
-        
-        return self.hit
-        
-    }
-    
-}
-
 extension String {
     
     func split(separator: String) -> [String] {

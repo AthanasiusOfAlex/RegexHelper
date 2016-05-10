@@ -79,6 +79,8 @@ o
 
 As can be seen, the first submatch, `match[0]` or `match.first` is identical to `match.hit`—in other words, it is the entire match. The next submatch, `match[1]`, returns the text matched by the pattern inside the first set of parentheses, `[er]+`, and so on.
 
+If you try to use the Match object in the `print()` function, the contents of `match.hit` will be used.
+
 ## String.isMatchedBy(pattern:)
 
 Returns true if the pattern matches the string at least once, and false otherwise. Again, there are overloads for using NSRegularExpression objects and all the corresponding options. For instance,
