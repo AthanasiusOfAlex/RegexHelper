@@ -5,6 +5,15 @@ import RegexHelper
 
 var str = "Hello, playground\nWe hold these? Truths to be self-evident."
 
+extension Match: CustomStringConvertible {
+    
+    public var description: String {
+        
+        return self.hit
+        
+    }
+    
+}
 
 extension String {
     
@@ -17,8 +26,9 @@ extension String {
 }
 
 for match in "Hello, world".matches("([er]+)(l+)([do]+)") {
-    print(match.hit)
+    print(match)
 }
+
 print("=======")
 let match = "Hello, world".matches("([er]+)(l+)([do]+)").first!
 

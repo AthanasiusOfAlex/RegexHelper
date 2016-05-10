@@ -456,3 +456,14 @@ extension Match : SequenceType {
     }
     
 }
+
+// MARK - make it possible to use a Match as a variable by the print function
+extension Match: CustomStringConvertible {
+    
+    public var description: String {
+        
+        return self.hit
+        
+    }
+    
+}
