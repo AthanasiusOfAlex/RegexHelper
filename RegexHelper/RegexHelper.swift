@@ -541,7 +541,7 @@ extension String {
     /// will return `(nil,` original-string`)`. If the match is at very end, the
     /// method will return `(`front-part-of-string`, nil)`. If the original string
     /// is empty, the method will return `(nil, nil)`.
-    func splitFirst(separatorRegex: String) -> (String?, String?) {
+    public func splitFirst(separatorRegex: String) -> (String?, String?) {
         
         if let match = self.matches(separatorRegex,
                                     regexOptions: [ .DotMatchesLineSeparators ]).first {
