@@ -160,7 +160,7 @@ public extension String {
     /// Returns an Matches object based on a regex pattern.
     /// Uses matching options, the the regex options need to be specified.
     /// Equivalent to `String.matches(`_pattern_`, regexOptions: `_options_`, [])`.
-    public func matches(pattern: String, regexOpations: NSRegularExpressionOptions) -> Matches {
+    public func matches(pattern: String, regexOptions: NSRegularExpressionOptions) -> Matches {
         
         return matches(pattern, regexOptions: [], matchingOptions: [])
         
@@ -543,7 +543,8 @@ extension String {
     /// is empty, the method will return `(nil, nil)`.
     func splitFirst(separatorRegex: String) -> (String?, String?) {
         
-        if let match = self.matches(separatorRegex).first {
+        if let match = self.matches(separatorRegex,
+                                    regexOptions: [ .DotMatchesLineSeparators ]).first {
             
             let pre = match.pre
             let post = match.post
@@ -560,6 +561,12 @@ extension String {
     public func split(separatorRegex: String) -> String.Splitter {
         
         return String.Splitter(input: self, separatorRegex: separatorRegex)
+        
+    }
+    
+    public var split: String.Splitter {
+        
+        return self.split("\\s+")
         
     }
     

@@ -64,7 +64,7 @@ The submatches may also be cycled through. For instance, consider the following 
 let match = "Hello, world".matches("([er]+)(l+)([do]+)").first!
 
 for submatch in match {
-  print(submatch)
+    print(submatch)
 }
 ```
 
@@ -110,3 +110,60 @@ will return `world, Hello`. Too make the match case-insensitive, use
                           withTemplate: "$3$2$1",
                           usingRegexOptions: [ .CaseInsensitive ])
 ```
+
+## Splitter
+
+As a bonus, I added a regex-based splitter function. It will take any string and attempt to split it into pieces, using a regular expression to match the text will function as the separator. For example,
+
+```swift
+for word in "aaaaaaa##bbbbbb#c######dddd".split("#+") {
+    print(word)
+}
+```
+
+will print
+
+
+```
+aaaaaaa
+bbbbbb
+c
+dddd
+```
+
+I have also made a property (which does not take arguments) with the same name that splits a string based on whitespace. For example,
+
+```swift
+for word in "We hold these Truths to be self-evident".split {
+print(word)
+}
+```
+
+will print
+
+
+```
+We
+hold
+these
+Truths
+to
+be
+self-evident
+```
+
+
+The `split` method and `split` property both return an object of type `String.Splitter`, which can be used (as in the examples) in a `for` loop. It can easily be converted into an array as follows:
+
+```swift
+let words = "We hold these Truths to be self-evident".split
+let wordArray = Array(words)
+```
+
+or
+
+```swift
+let wordArray = Array("We hold these Truths to be self-evident".split)
+```
+
+Either example will produce the array `["We", "hold", "these", "Truths", "to", "be", "self-evident"]`.

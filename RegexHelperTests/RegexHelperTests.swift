@@ -69,7 +69,7 @@ class RegexHelperTests: XCTestCase {
         
     }
     
-    func testSplitterFirst() {
+    func testSplitFirst() {
         
         var first, rest: String?
         
@@ -96,6 +96,8 @@ class RegexHelperTests: XCTestCase {
         XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd##".split("#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
         XCTAssert(Array("".split("#+"))==[])
         XCTAssert(Array("aaaabbbbccddd".split("#+"))==[ "aaaabbbbccddd" ])
+        
+        XCTAssert(Array("We hold\nthese\tTruths".split)==[ "We", "hold", "these", "Truths" ])
         
     }
     
