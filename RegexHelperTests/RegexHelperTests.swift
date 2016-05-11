@@ -64,8 +64,38 @@ class RegexHelperTests: XCTestCase {
         
         XCTAssert(testString.replaceAll("world", withTemplate: "there")==testString)
         XCTAssert(testString.replaceAll("☺️😇", withTemplate: "there,")=="Hello, there, World!")
-        // The following test fails, apparently, is a bug in `stringByReplacingMatchesInString`
+        // The following test fails, apparently, there is a bug in `NSRegularExpression`
         //XCTAssert(testString.replaceAll("[☺️😇]", withTemplate: "there,")=="Hello, there,there, World!")
+        
+    }
+    
+    func testSplitterFirst() {
+        
+        var first, rest: String?
+        
+        (first, rest) = "aaaa###aaaaaa#a#aaaa##".splitFirst("#+")
+        XCTAssert(first=="aaaa" && rest=="aaaaaa#a#aaaa##")
+        
+        (first, rest) = "aaaaaaaa##".splitFirst("#+")
+        XCTAssert(first=="aaaaaaaa" && rest==nil)
+        
+        (first, rest) = "aaaaaaaaa".splitFirst("#+")
+        XCTAssert(first==nil && rest=="aaaaaaaaa")
+        
+        (first, rest) = "#######".splitFirst("#+")
+        XCTAssert(first==nil && rest==nil)
+
+        (first, rest) = "".splitFirst("#+")
+        XCTAssert(first==nil && rest==nil)
+        
+    }
+    
+    func testSplitter() {
+        
+        XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd".split("#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
+        XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd##".split("#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
+        XCTAssert(Array("".split("#+"))==[])
+        XCTAssert(Array("aaaabbbbccddd".split("#+"))==[ "aaaabbbbccddd" ])
         
     }
     

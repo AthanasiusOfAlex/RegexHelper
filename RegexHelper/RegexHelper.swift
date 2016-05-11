@@ -474,12 +474,12 @@ extension String {
     public struct Splitter: SequenceType {
         
         let input: String
-        let separator: String
+        let separatorRegex: String
         
-        public init(input: String, separator: String) {
+        public init(input: String, separatorRegex: String) {
             
             self.input = input
-            self.separator = separator
+            self.separatorRegex = separatorRegex
             
         }
         
@@ -488,19 +488,19 @@ extension String {
             
             public typealias Element = String
             
-            let separator: String
+            let separatorRegex: String
             var input: String?
             
-            init(input: String, separator: String) {
+            init(input: String, separatorRegex: String) {
                 
                 self.input = input
-                self.separator = separator
+                self.separatorRegex = separatorRegex
                 
             }
             
             mutating public func next() -> Element? {
                 
-                if let (first, rest) = input?.splitFirst(separator) {
+                if let (first, rest) = input?.splitFirst(separatorRegex) {
                     
                     if let first = first {
                         
@@ -524,15 +524,26 @@ extension String {
         
         public func generate() -> Generator {
             
-            return Generator(input: input, separator: separator)
+            return Generator(input: input, separatorRegex: separatorRegex)
             
         }
         
     }
     
-    func splitFirst(separator: String) -> (String?, String?) {
+    /// This function will attempt to break a string in two
+    /// at the first opportunity, eliminating the string that
+    /// matches `sepearatorRegex`. Returns a tuple with the 
+    /// front part that has been "broken off" and the remaininder
+    /// of the string. For instance,
+    /// `"aaaa##aaaaa#aaa".splitFirst("#+")` will return `("aaaa", "aaaaa#aaa")`
+    /// If one of the two pieces turns out to be empty, `splitFirst` will return
+    /// `nil`. For example, if the separator pattern matches nothing, the method
+    /// will return `(nil,` original-string`)`. If the match is at very end, the
+    /// method will return `(`front-part-of-string`, nil)`. If the original string
+    /// is empty, the method will return `(nil, nil)`.
+    func splitFirst(separatorRegex: String) -> (String?, String?) {
         
-        if let match = self.matches(separator).first {
+        if let match = self.matches(separatorRegex).first {
             
             let pre = match.pre
             let post = match.post
@@ -546,9 +557,9 @@ extension String {
         }
     }
     
-    public func split(separator: String) -> String.Splitter {
+    public func split(separatorRegex: String) -> String.Splitter {
         
-        return String.Splitter(input: self, separator: separator)
+        return String.Splitter(input: self, separatorRegex: separatorRegex)
         
     }
     
