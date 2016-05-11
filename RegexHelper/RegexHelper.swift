@@ -558,12 +558,22 @@ extension String {
         }
     }
     
+    /// Returns a `String.Splitter` object that represents the pieces
+    /// of a string that has been split according to a separator defined
+    /// by a regex pattern. The `String.Splitter` can be used in a `for`
+    /// loop or converted into an array by using the appropriate cast
+    /// (e.g., `Array(mySplitter)`).
     public func split(separatorRegex: String) -> String.Splitter {
         
         return String.Splitter(input: self, separatorRegex: separatorRegex)
         
     }
     
+    /// Returns a `String.Splitter` object that represents the pieces
+    /// of a string that has been split according to white space (including
+    /// newlines and tabs). The `String.Splitter` can be used in a `for` loop
+    /// or converted into an array by using the appropriate cast 
+    /// (e.g., `Array(mySplitter)`).
     public var split: String.Splitter {
         
         return self.split("\\s+")
