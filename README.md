@@ -36,7 +36,9 @@ It it probably safer to use the following technique:
 
 ```swift    
 if let match = matches.first {
-  // Do whatever you want to do with match.
+
+    // Do whatever you want to do with match.
+
 }
 ```
     
@@ -44,7 +46,9 @@ or else
 
 ```swift
 for match in matches {
-  // Do something with each match.
+
+    // Do something with each match.
+
 }
 ```
 
@@ -64,7 +68,9 @@ The submatches may also be cycled through. For instance, consider the following 
 let match = "Hello, world".matches("([er]+)(l+)([do]+)").first!
 
 for submatch in match {
+
     print(submatch)
+
 }
 ```
 
@@ -117,7 +123,9 @@ As a bonus, I added a regex-based splitter function. It will take any string and
 
 ```swift
 for word in "aaaaaaa##bbbbbb#c######dddd".split("#+") {
+
     print(word)
+
 }
 ```
 
@@ -135,7 +143,9 @@ I have also made a property (which does not take arguments) with the same name t
 
 ```swift
 for word in "We hold these Truths to be self-evident".split {
-print(word)
+
+    print(word)
+
 }
 ```
 
