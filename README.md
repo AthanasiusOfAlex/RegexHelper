@@ -16,6 +16,8 @@ The import statement is not necessary if you simply incorporate `RegexHelper.swi
 
 The library essentially adds three methods to the String class: `matches`, `isMatchedBy`, and `replaceAll`.
 
+As a bonus, it adds a `split` method and `split` property that break a string into parts, using a regex-based separator. (If all you want to do is split a string at the first opportunity, the `splitFirst` method will do that.)
+
 ## String.matches(pattern:)
 
 `matches` simply returns an iterable and indexable list of the matches found a given string. The simplest usage is
