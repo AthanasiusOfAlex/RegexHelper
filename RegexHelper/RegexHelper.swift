@@ -162,7 +162,7 @@ public extension String {
     /// Equivalent to `String.matches(`_pattern_`, regexOptions: `_options_`, [])`.
     public func matches(pattern: String, regexOptions: NSRegularExpressionOptions) -> Matches {
         
-        return matches(pattern, regexOptions: [], matchingOptions: [])
+        return matches(pattern, regexOptions: regexOptions, matchingOptions: [])
         
     }
     
