@@ -479,8 +479,6 @@ extension Match {
         
     }
     
-    
-    
 }
 
 // MARK - an extension to String that provides a regex-based splitter.
@@ -497,7 +495,6 @@ extension String {
             self.separator = separator
             
         }
-        
         
         public struct Generator : GeneratorType {
             
@@ -597,3 +594,28 @@ extension String {
     
 }
 
+extension String.Splitter: CollectionType {
+    
+    public typealias Index = Int
+    
+    public var startIndex : Int { return 0 }
+    
+    public var endIndex : Int { var count = 0; for _ in self { count += 1 }; return count }
+    
+    public subscript (i: Int) -> String {
+        
+        var count = 0
+        
+        
+        for string in self {
+            
+            if count==i {
+                return string
+            }
+            
+            count += 1
+        }
+        
+        return ""
+    }
+}

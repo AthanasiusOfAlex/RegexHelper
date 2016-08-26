@@ -147,14 +147,15 @@ extension String {
 
 }
 
-extension String {
-    
-
-    
-}
-
 let goo: [String] = []
 goo.prefix(1)
 
 let myStr = "a farewell to arms ".titleCaseEnglishUS
 
+var splitter = myStr.split
+var gen = splitter.generate()
+gen.next()
+
+splitter.first
+(splitter.dropFirst()).first
+splitter.first
