@@ -124,7 +124,7 @@ will return `world, Hello`. Too make the match case-insensitive, use
 As a bonus, I added a regex-based splitter function. It will take any string and attempt to split it into pieces, using a regular expression to match the text will function as the separator. For example,
 
 ```swift
-for word in "aaaaaaa##bbbbbb#c######dddd".split("#+") {
+for word in "aaaaaaa##bbbbbb#c######dddd".split(usingSeparator: "#+") {
 
     print(word)
 

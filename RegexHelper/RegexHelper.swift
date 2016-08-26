@@ -255,7 +255,7 @@ public extension String {
 
 }
 
-// Mark - Adds a replaceAll function to String
+// MARK - Adds a replaceAll function to String
 public extension String {
     
     /// Does a replaceAll with the possibility of setting matching options.
@@ -309,12 +309,11 @@ public extension String {
 
 public struct Matches {
     
-    private var matches: [NSTextCheckingResult]
-    private var match: NSTextCheckingResult?
+    private var nsMatches: [NSTextCheckingResult]
     private var input: String
     
     init(matches: [NSTextCheckingResult], input: String) {
-        self.matches = matches
+        self.nsMatches = matches
         self.input = input
     }
 }
@@ -326,10 +325,12 @@ extension Matches : CollectionType {
     
     public var startIndex : Int { return 0 }
     
-    public var endIndex : Int { return matches.count }
+    public var endIndex : Int { return nsMatches.count }
     
     public subscript (i: Int) -> Match {
-        return Match(match: matches[i], input: input)
+        
+        return Match(match: nsMatches[i], input: input)
+        
     }
     
 }
@@ -364,7 +365,7 @@ extension Matches : SequenceType {
     }
     
     public func generate() -> Generator {
-        return Generator(matches: matches, input: input)
+        return Generator(matches: nsMatches, input: input)
     }
 }
 
@@ -372,7 +373,7 @@ public struct Match {
     
     public var pre: String {
         
-        let range = input.swiftRange(match.range)
+        let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
         return input[input.startIndex..<range!.startIndex]
@@ -381,7 +382,7 @@ public struct Match {
     
     public var post: String {
         
-        let range = input.swiftRange(match.range)
+        let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
         return input[range!.endIndex..<input.endIndex]
@@ -390,19 +391,20 @@ public struct Match {
     
     public var hit: String {
         
-        let range = input.swiftRange(match.range)
+        let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
         return input[range!]
     }
     
     private var input: String
-    private var match: NSTextCheckingResult
+    private var nsMatch_: NSTextCheckingResult
     
     init (match: NSTextCheckingResult, input: String) {
-        self.match = match
+        self.nsMatch_ = match
         self.input = input
     }
+    
 }
 
 // MARK - makes the match type accessible by index
@@ -412,11 +414,11 @@ extension Match : CollectionType {
     
     public var startIndex : Int { return 0 }
     
-    public var endIndex : Int { return match.numberOfRanges }
+    public var endIndex : Int { return nsMatch_.numberOfRanges }
     
     public subscript (i: Int) -> String {
         
-        let range = input.swiftRange(match.rangeAtIndex(i))
+        let range = input.swiftRange(nsMatch_.rangeAtIndex(i))
         assert(range != nil, "An invalid index was given")
         
         return input[range!]
@@ -468,18 +470,31 @@ extension Match: CustomStringConvertible {
     
 }
 
+// MARK - returns a Range<String.Index> where the hit is.
+extension Match {
+    
+    public var range: Range<String.Index> {
+        
+        return input.swiftRange(nsMatch_.range)!
+        
+    }
+    
+    
+    
+}
+
 // MARK - an extension to String that provides a regex-based splitter.
 extension String {
     
     public struct Splitter: SequenceType {
         
         let input: String
-        let separatorRegex: String
+        let separator: String
         
-        public init(input: String, separatorRegex: String) {
+        public init(input: String, usingSeparator separator: String) {
             
             self.input = input
-            self.separatorRegex = separatorRegex
+            self.separator = separator
             
         }
         
@@ -488,19 +503,19 @@ extension String {
             
             public typealias Element = String
             
-            let separatorRegex: String
+            let separator: String
             var input: String?
             
-            init(input: String, separatorRegex: String) {
+            init(input: String, separator: String) {
                 
                 self.input = input
-                self.separatorRegex = separatorRegex
+                self.separator = separator
                 
             }
             
             mutating public func next() -> Element? {
                 
-                if let (first, rest) = input?.splitFirst(separatorRegex) {
+                if let (first, rest) = input?.splitFirst(usingSeparator: separator) {
                     
                     if let first = first {
                         
@@ -524,7 +539,7 @@ extension String {
         
         public func generate() -> Generator {
             
-            return Generator(input: input, separatorRegex: separatorRegex)
+            return Generator(input: input, separator: separator)
             
         }
         
@@ -541,9 +556,9 @@ extension String {
     /// will return `(nil,` original-string`)`. If the match is at very end, the
     /// method will return `(`front-part-of-string`, nil)`. If the original string
     /// is empty, the method will return `(nil, nil)`.
-    public func splitFirst(separatorRegex: String) -> (String?, String?) {
+    public func splitFirst(usingSeparator separator: String) -> (String?, String?) {
         
-        if let match = self.matches(separatorRegex,
+        if let match = self.matches(separator,
                                     regexOptions: [ .DotMatchesLineSeparators ]).first {
             
             let pre = match.pre
@@ -563,9 +578,9 @@ extension String {
     /// by a regex pattern. The `String.Splitter` can be used in a `for`
     /// loop or converted into an array by using the appropriate cast
     /// (e.g., `Array(mySplitter)`).
-    public func split(separatorRegex: String) -> String.Splitter {
+    public func split(usingSeprator separator: String) -> String.Splitter {
         
-        return String.Splitter(input: self, separatorRegex: separatorRegex)
+        return String.Splitter(input: self, usingSeparator: separator)
         
     }
     
@@ -576,7 +591,7 @@ extension String {
     /// (e.g., `Array(mySplitter)`).
     public var split: String.Splitter {
         
-        return self.split("\\s+")
+        return self.split(usingSeprator: "\\s+")
         
     }
     

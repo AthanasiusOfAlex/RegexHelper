@@ -73,29 +73,29 @@ class RegexHelperTests: XCTestCase {
         
         var first, rest: String?
         
-        (first, rest) = "aaaa###aaaaaa#a#aaaa##".splitFirst("#+")
+        (first, rest) = "aaaa###aaaaaa#a#aaaa##".splitFirst(usingSeparator: "#+")
         XCTAssert(first=="aaaa" && rest=="aaaaaa#a#aaaa##")
         
-        (first, rest) = "aaaaaaaa##".splitFirst("#+")
+        (first, rest) = "aaaaaaaa##".splitFirst(usingSeparator: "#+")
         XCTAssert(first=="aaaaaaaa" && rest==nil)
         
-        (first, rest) = "aaaaaaaaa".splitFirst("#+")
+        (first, rest) = "aaaaaaaaa".splitFirst(usingSeparator: "#+")
         XCTAssert(first==nil && rest=="aaaaaaaaa")
         
-        (first, rest) = "#######".splitFirst("#+")
+        (first, rest) = "#######".splitFirst(usingSeparator: "#+")
         XCTAssert(first==nil && rest==nil)
 
-        (first, rest) = "".splitFirst("#+")
+        (first, rest) = "".splitFirst(usingSeparator: "#+")
         XCTAssert(first==nil && rest==nil)
         
     }
     
     func testSplitter() {
         
-        XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd".split("#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
-        XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd##".split("#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
-        XCTAssert(Array("".split("#+"))==[])
-        XCTAssert(Array("aaaabbbbccddd".split("#+"))==[ "aaaabbbbccddd" ])
+        XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd".split(usingSeprator: "#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
+        XCTAssert(Array("aaaaaaa##bbbbbb#c######dddd##".split(usingSeprator: "#+"))==[ "aaaaaaa", "bbbbbb", "c", "dddd" ])
+        XCTAssert(Array("".split(usingSeprator: "#+"))==[])
+        XCTAssert(Array("aaaabbbbccddd".split(usingSeprator: "#+"))==[ "aaaabbbbccddd" ])
         
         XCTAssert(Array("We hold\nthese\tTruths".split)==[ "We", "hold", "these", "Truths" ])
         
