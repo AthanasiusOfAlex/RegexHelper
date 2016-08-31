@@ -4,13 +4,13 @@ A Swift framwork to simplify using regular expressions
 # Installation
 The simplest way to install this project is simply to copy the file `RegexHelper.swift` and include it in your project.
 
-Alternatively, copy the entire project and add it to an existing project. (It is sufficient to drag and drop the project into the existing one, or to use the menu item ‘Add Files to “_Project Name_”…’) In that case, it is necessary to add in each source file the following import statement:
+Alternatively, copy this entire project (that is, all of the files in this repository) and add it to an existing project. (It is sufficient to drag and drop the file `RegexHelper.xcodeproj` into an existing project, or to use the menu item ‘Add Files to “_Project Name_”…’) If you use the framework, it is necessary to add the following import statement to each source file that needs the functionality:
 
 ```swift
 import RegexHelper
 ```
 
-The import statement is not necessary if you simply incorporate `RegexHelper.swift` into your project.
+The import statement is not necessary if you simply incorporate `RegexHelper.swift` into your project. The advantage of using a framework, however, is that you can use `RegexHelper` as a namespace, if necessary.
 
 # Usage
 
