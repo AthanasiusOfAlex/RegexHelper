@@ -512,17 +512,17 @@ extension String {
             
             mutating public func next() -> Element? {
                 
-                if let (first, rest) = input?.splitFirst(usingSeparator: separator) {
+                if let (head, tail) = input?.splitFirst(usingSeparator: separator) {
                     
-                    if let first = first {
+                    if let head = head {
                         
-                        input = rest
-                        return first
+                        input = tail
+                        return head
                         
                     } else {
                         
                         input = nil
-                        return rest
+                        return tail
                         
                     }
                     

@@ -11,10 +11,8 @@
 		5244E1C21CDBB7B900D96E87 /* RegexHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5244E1B71CDBB7B900D96E87 /* RegexHelper.framework */; };
 		5244E1C71CDBB7B900D96E87 /* RegexHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */; };
 		5244E1D21CDBB80200D96E87 /* RegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244E1D11CDBB80200D96E87 /* RegexHelper.swift */; };
-		527478B41CDD3A6F005EE33C /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 527478B21CDD3A6F005EE33C /* LICENSE.md */; };
 		527478B51CDD3A6F005EE33C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 527478B31CDD3A6F005EE33C /* README.md */; };
 		52A412C81CDD3C0E00DC10D5 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 52A412C61CDD3C0E00DC10D5 /* LICENSE.md */; };
-		52A412C91CDD3C0E00DC10D5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 52A412C71CDD3C0E00DC10D5 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -48,7 +46,6 @@
 		5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelperTests.swift; sourceTree = "<group>"; };
 		5244E1C81CDBB7B900D96E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5244E1D11CDBB80200D96E87 /* RegexHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexHelper.swift; sourceTree = "<group>"; };
-		527478B21CDD3A6F005EE33C /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = LICENSE.md; path = /Users/lmelahn/Documents/Projects/RegexHelper/LICENSE.md; sourceTree = "<absolute>"; };
 		527478B31CDD3A6F005EE33C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = /Users/lmelahn/Documents/Projects/RegexHelper/README.md; sourceTree = "<absolute>"; };
 		52A412C61CDD3C0E00DC10D5 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		52A412C71CDD3C0E00DC10D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -170,14 +167,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Louis Melahn";
 				TargetAttributes = {
 					5244E1B61CDBB7B900D96E87 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					5244E1C01CDBB7B900D96E87 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -223,8 +222,6 @@
 			files = (
 				52A412C81CDD3C0E00DC10D5 /* LICENSE.md in Sources */,
 				527478B51CDD3A6F005EE33C /* README.md in Sources */,
-				52A412C91CDD3C0E00DC10D5 /* README.md in Sources */,
-				527478B41CDD3A6F005EE33C /* LICENSE.md in Sources */,
 				5244E1D21CDBB80200D96E87 /* RegexHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,8 +259,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -310,8 +309,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -331,6 +332,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -340,6 +342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -353,6 +356,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -360,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -372,6 +377,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -383,6 +389,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -394,6 +401,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
