@@ -214,6 +214,7 @@ public extension String {
         return Matches(matches: nsMatches, input: self)
         
     }
+    
 }
 
 // MARK - Adds an `isMatchedBy` function to String for convenience.
@@ -379,9 +380,9 @@ extension Matches : Sequence {
         
         public typealias Element = Match
         
-        fileprivate var matches : [NSTextCheckingResult]
-        fileprivate var input: String
-        fileprivate var index = 0
+        private var matches : [NSTextCheckingResult]
+        private var input: String
+        private var index = 0
         
         init (matches: [NSTextCheckingResult], input: String) {
             self.matches = matches
@@ -476,24 +477,33 @@ extension Match : Sequence {
         
         public typealias Element = String
         
-        fileprivate var index = 0   // Note that one submatch is guaranteed.
-        fileprivate var match: Match
-        fileprivate let endIndex: Int
+        private var index = 0   // Note that one submatch is guaranteed.
+        private var match: Match
+        private let endIndex: Int
         
         init (match: Match, endIndex: Int) {
+            
             self.match = match
             self.endIndex = endIndex
+            
         }
         
-        mutating public func next() -> Element? {
-            if index==endIndex {
+        public mutating func next() -> Element? {
+            
+            if index == endIndex {
+                
                 return nil
+                
             } else {
+                
                 let oldIndex = index
                 index += 1
                 return match[oldIndex]
+                
             }
+            
         }
+        
     }
     
     public func makeIterator() -> Iterator {
