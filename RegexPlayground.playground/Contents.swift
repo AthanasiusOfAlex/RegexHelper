@@ -7,7 +7,7 @@ var str = "We hold these éh☺️ Truths to be self-evident"
 
 extension String {
     
-    private var dropFirst: String {
+    private func dropFirst() -> String {
         
         if self.isEmpty {
             
@@ -15,17 +15,17 @@ extension String {
             
         } else {
             
-            return self[startIndex.advancedBy(1) ..< endIndex]
+            return self[self.index(self.startIndex, offsetBy: 1) ..< self.endIndex]
             
         }
         
     }
     
-    private var uppercaseFirst: String {
+    private func firstLetterUppercased() -> String {
         
         if let firstLetter = self.characters.first {
             
-            return String(firstLetter).uppercaseString + self.dropFirst
+            return String(firstLetter).uppercased() + self.dropFirst()
             
         } else {
             
@@ -35,9 +35,9 @@ extension String {
         
     }
     
-    private struct Wordifier : SequenceType {
+    private struct Wordifier : Sequence {
         
-        struct Generator : GeneratorType {
+        struct Iterator : IteratorProtocol {
             
             typealias Element = String
             
@@ -80,9 +80,9 @@ extension String {
             
         }
         
-        func generate() -> Generator {
+        func makeIterator() -> Iterator {
             
-            return Generator(input: input)
+            return Iterator(input: input)
             
         }
         
@@ -111,12 +111,11 @@ extension String {
     }
     
 
-    var titleCaseEnglishUS: String {
-
+    func titleCasedAsEnglishUS() -> String {
 
         // MARK - Capitalize the string and remove and leading spaces.
 
-        let (leadingSpace, workingString) = trimLeadingSpace(self.lowercaseString)
+        let (leadingSpace, workingString) = trimLeadingSpace(input: self.lowercased())
         assert(workingString.isMatchedBy("^\\s+")==false)
         
         // MARK - turn the string into a sequence of words and spaces.
@@ -127,15 +126,15 @@ extension String {
         
         // MARK - go through the words and make them lowercase, if they match and
         //        are not the first word; capitalized otherwise.
-        for (index, word) in words.enumerate() {
+        for (index, word) in words.enumerated() {
             
-            if index > 0 && word.isMatchedBy(prepositionPattern, regexOptions: [.CaseInsensitive]) {
+            if index > 0 && word.isMatchedBy(prepositionPattern, regexOptions: [ .caseInsensitive ]) {
                 
-                newString += word.lowercaseString
+                newString += word.lowercased()
                 
             } else {
                 
-                newString += word.lowercaseString.uppercaseFirst
+                newString += word.lowercased().firstLetterUppercased()
                 
             }
             
@@ -150,10 +149,10 @@ extension String {
 let goo: [String] = []
 goo.prefix(1)
 
-let myStr = "a farewell to arms ".titleCaseEnglishUS
+let myStr = "a farewell to arms ".titleCasedAsEnglishUS()
 
 var splitter = myStr.split
-var gen = splitter.generate()
+var gen = splitter.makeIterator()
 gen.next()
 
 splitter.first
