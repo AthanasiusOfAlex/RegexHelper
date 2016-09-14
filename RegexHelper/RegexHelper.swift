@@ -12,8 +12,8 @@ import Foundation
 
 public extension String {
     
-    public func getCharacterFromIntIndex (i: Int) -> Character {
-        return self[self.startIndex.advancedBy(i)]
+    public func getCharacterFromIntIndex (_ i: Int) -> Character {
+        return self[self.characters.index(self.startIndex, offsetBy: i)]
     }
     
     public subscript (i: Int) -> String {
@@ -37,7 +37,7 @@ public extension String {
     /// Returns the range of the whole string.
     var wholeString: Range<String.Index> {
         
-        return Range(self.startIndex ..< self.endIndex)
+        return Range(self.characters.indices)
         
     }
     
@@ -54,12 +54,12 @@ public extension String {
 public extension String {
     
     /// Returns a Swift-String-compatible range based on a range of integers
-    public func swiftRange (intRange: Range<Int>) -> Range<String.Index> {
+    public func swiftRange (_ intRange: Range<Int>) -> Range<String.Index> {
         
-        assert (intRange.startIndex >= 0, "Start index is too small (less than 0)")
+        assert (intRange.lowerBound >= 0, "Start index is too small (less than 0)")
         
-        var inputStartIndex = intRange.startIndex
-        var inputEndIndex = intRange.endIndex
+        var inputStartIndex = intRange.lowerBound
+        var inputEndIndex = intRange.upperBound
         let totalCharacters = self.characters.count
         
         // If the start index is greater than the number of characters,
@@ -75,42 +75,54 @@ public extension String {
             inputEndIndex = totalCharacters
         }
         
-        let outputStartIndex = startIndex.advancedBy(inputStartIndex)
-        let outputEndIndex = outputStartIndex.advancedBy(inputEndIndex - inputStartIndex)
+        let outputStartIndex = characters.index(startIndex, offsetBy: inputStartIndex)
+        let outputEndIndex = characters.index(outputStartIndex, offsetBy: inputEndIndex - inputStartIndex)
         
         return Range(outputStartIndex ..< outputEndIndex)
         
     }
     
     /// Returns a Swift-String-compatible range, based on an NSRange
-    public func swiftRange (nsRange: NSRange) -> Range<String.Index>? {
+    public func swiftRange (_ nsRange: NSRange) -> Range<String.Index>? {
         
-        let fromUTF16 = self.utf16.startIndex.advancedBy(nsRange.location, limit: self.utf16.endIndex)
-        let toUTF16 = fromUTF16.advancedBy(nsRange.length, limit: self.utf16.endIndex)
+        let utf16 = self.utf16
         
-        if let from = String.Index(fromUTF16, within: self),
-            let to = String.Index(toUTF16, within: self) {
+        guard let fromUTF16 = utf16.index(utf16.startIndex,
+                                          offsetBy: nsRange.location,
+                                          limitedBy: utf16.endIndex)
             
-            return from ..< to
-            
-        }
+            else { return nil }
+
+    
+        guard let toUTF16 = utf16.index(fromUTF16,
+                                        offsetBy: nsRange.length,
+                                        limitedBy: utf16.endIndex)
         
-        return nil
+            else { return nil }
+        
+        
+        guard let from = String.Index(fromUTF16, within: self),
+            let to = String.Index(toUTF16, within: self)
+            
+            else { return nil }
+        
+        return from ..< to
+        
     }
     
     /// Returns an NSRange, based on a Swift-String-compatible range
-    public func nsRange(swiftRange: Range<String.Index>) -> NSRange {
+    public func nsRange(_ swiftRange: Range<String.Index>) -> NSRange {
         
-        let utf16view = self.utf16
-        let from = String.UTF16View.Index(swiftRange.startIndex, within: utf16view)
-        let to = String.UTF16View.Index(swiftRange.endIndex, within: utf16view)
+        let utf16 = self.utf16
+        let from = String.UTF16View.Index(swiftRange.lowerBound, within: utf16)
+        let to = String.UTF16View.Index(swiftRange.upperBound, within: utf16)
         
-        return NSMakeRange(utf16view.startIndex.distanceTo(from), from.distanceTo(to))
+        return NSMakeRange(utf16.distance(from: from, to: utf16.startIndex), utf16.distance(from: from, to: to))
         
     }
 
     /// Returns and NSRange, based on a range of integers
-    public func nsRange(intRange: Range<Int>) -> NSRange {
+    public func nsRange(_ intRange: Range<Int>) -> NSRange {
         
         let swiftRange = self.swiftRange(intRange)
         return nsRange(swiftRange)
@@ -124,17 +136,17 @@ public extension String {
 //        a pattern to match, and returns an Match object with all the matches
 public extension String {
     
-    private func nsMatches (regex: NSRegularExpression) -> [NSTextCheckingResult] {
+    fileprivate func nsMatches (_ regex: NSRegularExpression) -> [NSTextCheckingResult] {
         return self.nsMatches(regex, options: [])
     }
     
-    private func nsMatches (regex: NSRegularExpression, options: NSMatchingOptions) -> [NSTextCheckingResult] {
+    fileprivate func nsMatches (_ regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions) -> [NSTextCheckingResult] {
         // NOTE that NSMakeRange counts using utf16 code points, not the total number of characters.
         // Hence, I must give it self.utf16.count, NOT self.characters.count.
-        return regex.matchesInString(self, options: options, range: NSMakeRange(0, self.utf16.count))
+        return regex.matches(in: self, options: options, range: NSMakeRange(0, self.utf16.count))
     }
     
-    private func validateRegex(pattern: String) -> Bool {
+    fileprivate func validateRegex(_ pattern: String) -> Bool {
         
         do {
             
@@ -151,7 +163,7 @@ public extension String {
     
     /// Returns an Matches object based on a regex pattern.
     /// Uses default regex and matching options.
-    public func matches(pattern: String) -> Matches {
+    public func matches(_ pattern: String) -> Matches {
         
         return matches(pattern, regexOptions: [], matchingOptions: [])
         
@@ -160,7 +172,7 @@ public extension String {
     /// Returns an Matches object based on a regex pattern.
     /// Uses matching options, the the regex options need to be specified.
     /// Equivalent to `String.matches(`_pattern_`, regexOptions: `_options_`, [])`.
-    public func matches(pattern: String, regexOptions: NSRegularExpressionOptions) -> Matches {
+    public func matches(_ pattern: String, regexOptions: NSRegularExpression.Options) -> Matches {
         
         return matches(pattern, regexOptions: regexOptions, matchingOptions: [])
         
@@ -168,9 +180,9 @@ public extension String {
     
     /// Returns an Matches object based on a regex pattern
     /// and an array of NSMatchingOptions.
-    public func matches(pattern: String,
-                   regexOptions: NSRegularExpressionOptions,
-                   matchingOptions: NSMatchingOptions) -> Matches {
+    public func matches(_ pattern: String,
+                   regexOptions: NSRegularExpression.Options,
+                   matchingOptions: NSRegularExpression.MatchingOptions) -> Matches {
         
         assert(validateRegex(pattern), "An invalid regex pattern was given: `\(pattern)`")
         
@@ -181,11 +193,11 @@ public extension String {
     
     /// Returns an Matches object based on a regex pattern.
     /// Uses the default options.
-    public func matches(regex: NSRegularExpression) -> Matches {
+    public func matches(_ regex: NSRegularExpression) -> Matches {
         return matches(regex, options: [])
     }
     
-    public func matches(regex: NSRegularExpression, options: NSMatchingOptions) -> Matches {
+    public func matches(_ regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions) -> Matches {
         
         let nsMatches = self.nsMatches(regex, options: options)
         return Matches(matches: nsMatches, input: self)
@@ -198,7 +210,7 @@ public extension String {
 
     /// Returns `true` if `regex` matches the string (`self`).
     /// This is the base implementation for all the rest.
-    public func isMatchedBy(regex: NSRegularExpression, matchingOptions: NSMatchingOptions) -> Bool {
+    public func isMatchedBy(_ regex: NSRegularExpression, matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
         
         let matches = self.matches(regex, options: matchingOptions)
         
@@ -216,7 +228,7 @@ public extension String {
     
     /// Returns `true` if `regex` matches the string (`self`).
     /// Uses a regex with the default matching options.
-    public func isMatchedBy(regex: NSRegularExpression) -> Bool {
+    public func isMatchedBy(_ regex: NSRegularExpression) -> Bool {
         
         return isMatchedBy(regex, matchingOptions: [])
         
@@ -224,9 +236,9 @@ public extension String {
     
     /// Returns `true` if `regex` matches the string (`self`).
     /// Uses a string and allows configuring the regex and matching options
-    public func isMatchedBy(pattern: String,
-                   regexOptions: NSRegularExpressionOptions,
-                   matchingOptions: NSMatchingOptions) -> Bool {
+    public func isMatchedBy(_ pattern: String,
+                   regexOptions: NSRegularExpression.Options,
+                   matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
         
         assert(validateRegex(pattern), "Invalid regex pattern given: \(pattern)")
         
@@ -239,7 +251,7 @@ public extension String {
     /// Returns `true` if `regex` matches the string (`self`).
     /// Uses a string and allows configuring the regex options,
     /// but uses the default matching options
-    public func isMatchedBy(pattern: String, regexOptions: NSRegularExpressionOptions) -> Bool {
+    public func isMatchedBy(_ pattern: String, regexOptions: NSRegularExpression.Options) -> Bool {
         
         return isMatchedBy(pattern, regexOptions: regexOptions, matchingOptions: [])
         
@@ -247,7 +259,7 @@ public extension String {
     
     /// Returns `true` if `regex` matches the string (`self`).
     /// Uses a string with the default regex and matching options
-    public func isMatchedBy(pattern: String) -> Bool {
+    public func isMatchedBy(_ pattern: String) -> Bool {
         
         return isMatchedBy(pattern, regexOptions: [], matchingOptions: [])
         
@@ -259,16 +271,16 @@ public extension String {
 public extension String {
     
     /// Does a replaceAll with the possibility of setting matching options.
-    public func replaceAll (regex: NSRegularExpression,
+    public func replaceAll (_ regex: NSRegularExpression,
                             withTemplate: String,
-                            usingMatchingOptions: NSMatchingOptions) -> String {
+                            usingMatchingOptions: NSRegularExpression.MatchingOptions) -> String {
         
-        return regex.stringByReplacingMatchesInString(self, options: usingMatchingOptions, range: self.wholeStringNsRange, withTemplate: withTemplate)
+        return regex.stringByReplacingMatches(in: self, options: usingMatchingOptions, range: self.wholeStringNsRange, withTemplate: withTemplate)
         
     }
     
     /// Does a replaceAll using the default matching options.
-    public func replaceAll(regex: NSRegularExpression, withTemplate: String) -> String {
+    public func replaceAll(_ regex: NSRegularExpression, withTemplate: String) -> String {
         
         return replaceAll(regex, withTemplate: withTemplate, usingMatchingOptions: [])
         
@@ -276,10 +288,10 @@ public extension String {
     
     /// Does a replaceAll using a string pattern, with the
     /// possibility of setting regex and matching options.
-    public func replaceAll(pattern: String,
+    public func replaceAll(_ pattern: String,
                            withTemplate: String,
-                           usingRegexOptions: NSRegularExpressionOptions,
-                           usingMatchingOptions: NSMatchingOptions) -> String {
+                           usingRegexOptions: NSRegularExpression.Options,
+                           usingMatchingOptions: NSRegularExpression.MatchingOptions) -> String {
         
         let regex = try! NSRegularExpression(pattern: pattern, options: usingRegexOptions)
         
@@ -290,16 +302,16 @@ public extension String {
     /// Does a replaceAll using a string pattern, with
     /// the possibility of setting the regex options, but
     /// using the default matching options
-    public func replaceAll(pattern: String,
+    public func replaceAll(_ pattern: String,
                            withTemplate: String,
-                           usingRegexOptions: NSRegularExpressionOptions) -> String {
+                           usingRegexOptions: NSRegularExpression.Options) -> String {
         
         return replaceAll(pattern, withTemplate: withTemplate, usingRegexOptions: usingRegexOptions, usingMatchingOptions: [])
         
     }
 
     /// Does a replaceAll using a string pattern, using all the default options.
-    public func replaceAll(pattern: String, withTemplate: String) -> String {
+    public func replaceAll(_ pattern: String, withTemplate: String) -> String {
         
         return replaceAll(pattern, withTemplate: withTemplate, usingRegexOptions: [])
 
@@ -309,8 +321,8 @@ public extension String {
 
 public struct Matches {
     
-    private var nsMatches: [NSTextCheckingResult]
-    private var input: String
+    fileprivate var nsMatches: [NSTextCheckingResult]
+    fileprivate var input: String
     
     init(matches: [NSTextCheckingResult], input: String) {
         self.nsMatches = matches
@@ -319,7 +331,7 @@ public struct Matches {
 }
 
 // MARK - makes the matches type accessible by index
-extension Matches : CollectionType {
+extension Matches : Collection {
     
     public typealias Index = Int
     
@@ -336,15 +348,15 @@ extension Matches : CollectionType {
 }
 
 // MARK - makes matches iterable
-extension Matches : SequenceType {
+extension Matches : Sequence {
     
-    public struct Generator : GeneratorType {
+    public struct Iterator : IteratorProtocol {
         
         public typealias Element = Match
         
-        private var matches : [NSTextCheckingResult]
-        private var input: String
-        private var index = 0
+        fileprivate var matches : [NSTextCheckingResult]
+        fileprivate var input: String
+        fileprivate var index = 0
         
         init (matches: [NSTextCheckingResult], input: String) {
             self.matches = matches
@@ -364,8 +376,8 @@ extension Matches : SequenceType {
         
     }
     
-    public func generate() -> Generator {
-        return Generator(matches: nsMatches, input: input)
+    public func makeIterator() -> Iterator {
+        return Iterator(matches: nsMatches, input: input)
     }
 }
 
@@ -376,7 +388,7 @@ public struct Match {
         let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
-        return input[input.startIndex..<range!.startIndex]
+        return input[input.startIndex..<range!.lowerBound]
         
     }
     
@@ -385,7 +397,7 @@ public struct Match {
         let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
-        return input[range!.endIndex..<input.endIndex]
+        return input[range!.upperBound..<input.endIndex]
         
     }
     
@@ -397,8 +409,8 @@ public struct Match {
         return input[range!]
     }
     
-    private var input: String
-    private var nsMatch_: NSTextCheckingResult
+    fileprivate var input: String
+    fileprivate var nsMatch_: NSTextCheckingResult
     
     init (match: NSTextCheckingResult, input: String) {
         self.nsMatch_ = match
@@ -408,7 +420,7 @@ public struct Match {
 }
 
 // MARK - makes the match type accessible by index
-extension Match : CollectionType {
+extension Match : Collection {
     
     public typealias Index = Int
     
@@ -418,7 +430,7 @@ extension Match : CollectionType {
     
     public subscript (i: Int) -> String {
         
-        let range = input.swiftRange(nsMatch_.rangeAtIndex(i))
+        let range = input.swiftRange(nsMatch_.rangeAt(i))
         assert(range != nil, "An invalid index was given")
         
         return input[range!]
@@ -427,15 +439,15 @@ extension Match : CollectionType {
     
 }
 
-extension Match : SequenceType {
+extension Match : Sequence {
     
-    public struct Generator : GeneratorType {
+    public struct Iterator : IteratorProtocol {
         
         public typealias Element = String
         
-        private var index = 0   // Note that one submatch is guaranteed.
-        private var match: Match
-        private let endIndex: Int
+        fileprivate var index = 0   // Note that one submatch is guaranteed.
+        fileprivate var match: Match
+        fileprivate let endIndex: Int
         
         init (match: Match, endIndex: Int) {
             self.match = match
@@ -453,8 +465,8 @@ extension Match : SequenceType {
         }
     }
     
-    public func generate() -> Generator {
-        return Generator(match: self, endIndex: count)
+    public func makeIterator() -> Iterator {
+        return Iterator(match: self, endIndex: count)
     }
     
 }
@@ -484,7 +496,7 @@ extension Match {
 // MARK - an extension to String that provides a regex-based splitter.
 extension String {
     
-    public struct Splitter: SequenceType {
+    public struct Splitter: Sequence {
         
         let input: String
         let separator: String
@@ -496,7 +508,7 @@ extension String {
             
         }
         
-        public struct Generator : GeneratorType {
+        public struct Iterator : IteratorProtocol {
             
             public typealias Element = String
             
@@ -534,9 +546,9 @@ extension String {
             }
         }
         
-        public func generate() -> Generator {
+        public func makeIterator() -> Iterator {
             
-            return Generator(input: input, separator: separator)
+            return Iterator(input: input, separator: separator)
             
         }
         
@@ -556,7 +568,7 @@ extension String {
     public func splitFirst(usingSeparator separator: String) -> (String?, String?) {
         
         if let match = self.matches(separator,
-                                    regexOptions: [ .DotMatchesLineSeparators ]).first {
+                                    regexOptions: [ .dotMatchesLineSeparators ]).first {
             
             let pre = match.pre
             let post = match.post
@@ -594,7 +606,7 @@ extension String {
     
 }
 
-extension String.Splitter: CollectionType {
+extension String.Splitter: Collection {
     
     public typealias Index = Int
     

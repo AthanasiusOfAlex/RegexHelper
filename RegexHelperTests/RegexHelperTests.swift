@@ -43,11 +43,11 @@ class RegexHelperTests: XCTestCase {
     func testIsMatchOf() {
     
         let testString = "Hello, ☺️😇 World!"
-        let regex = try! NSRegularExpression(pattern: "hello", options: [ .CaseInsensitive ])
+        let regex = try! NSRegularExpression(pattern: "hello", options: [ .caseInsensitive ])
         
         XCTAssert(testString.isMatchedBy("☺️😇"))
         XCTAssertFalse(testString.isMatchedBy("hello"))
-        XCTAssert(testString.isMatchedBy("hello", regexOptions: [ .CaseInsensitive ]))
+        XCTAssert(testString.isMatchedBy("hello", regexOptions: [ .caseInsensitive ]))
         XCTAssert(testString.isMatchedBy(regex))
         
     }
@@ -55,11 +55,11 @@ class RegexHelperTests: XCTestCase {
     func testReplaceAll() {
         
         let testString = "Hello, ☺️😇 World!"
-        let regex = try! NSRegularExpression(pattern: "world", options: [ .CaseInsensitive ])
+        let regex = try! NSRegularExpression(pattern: "world", options: [ .caseInsensitive ])
         
         XCTAssert(testString.replaceAll(regex, withTemplate: "there",
             usingMatchingOptions: [])=="Hello, ☺️😇 there!")
-        XCTAssert(testString.replaceAll("world", withTemplate: "there", usingRegexOptions: [ .CaseInsensitive ])=="Hello, ☺️😇 there!")
+        XCTAssert(testString.replaceAll("world", withTemplate: "there", usingRegexOptions: [ .caseInsensitive ])=="Hello, ☺️😇 there!")
         
         
         XCTAssert(testString.replaceAll("world", withTemplate: "there")==testString)
@@ -103,7 +103,7 @@ class RegexHelperTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
