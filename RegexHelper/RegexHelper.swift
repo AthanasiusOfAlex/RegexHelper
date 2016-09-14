@@ -37,7 +37,7 @@ public extension String {
     /// Returns the range of the whole string.
     var wholeString: Range<String.Index> {
         
-        return Range(self.characters.indices)
+        return self.startIndex ..< self.endIndex
         
     }
     
@@ -66,17 +66,23 @@ public extension String {
         // reduce the start index to the number characters, so as to
         // return an empty string.
         if inputStartIndex > totalCharacters {
+            
             inputStartIndex = totalCharacters
+            
         }
         
         // If the range rolls off the end of the string,
         // just return whatever much of the string you can.
         if inputEndIndex > totalCharacters {
+            
             inputEndIndex = totalCharacters
+            
         }
         
         let outputStartIndex = characters.index(startIndex, offsetBy: inputStartIndex)
-        let outputEndIndex = characters.index(outputStartIndex, offsetBy: inputEndIndex - inputStartIndex)
+        
+        let outputEndIndex = characters.index(outputStartIndex,
+                                              offsetBy: inputEndIndex - inputStartIndex)
         
         return Range(outputStartIndex ..< outputEndIndex)
         
@@ -87,22 +93,27 @@ public extension String {
         
         let utf16 = self.utf16
         
-        guard let fromUTF16 = utf16.index(utf16.startIndex,
-                                          offsetBy: nsRange.location,
-                                          limitedBy: utf16.endIndex)
+        guard
+            
+            let lowerBoundUTF16 = utf16.index(utf16.startIndex,
+                                              offsetBy: nsRange.location,
+                                              limitedBy: utf16.endIndex)
             
             else { return nil }
-
-    
-        guard let toUTF16 = utf16.index(fromUTF16,
-                                        offsetBy: nsRange.length,
-                                        limitedBy: utf16.endIndex)
+        
+        guard
+            
+            let upperBoundUTF16 = utf16.index(lowerBoundUTF16,
+                                              offsetBy: nsRange.length,
+                                              limitedBy: utf16.endIndex)
         
             else { return nil }
         
         
-        guard let from = String.Index(fromUTF16, within: self),
-            let to = String.Index(toUTF16, within: self)
+        guard
+            
+            let from = String.Index(lowerBoundUTF16, within: self),
+            let to = String.Index(upperBoundUTF16, within: self)
             
             else { return nil }
         
@@ -114,11 +125,11 @@ public extension String {
     public func nsRange(_ swiftRange: Range<String.Index>) -> NSRange {
         
         let utf16 = self.utf16
-        let from = String.UTF16View.Index(swiftRange.lowerBound, within: utf16)
-        let to = String.UTF16View.Index(swiftRange.upperBound, within: utf16)
+        let lowerBound = String.UTF16View.Index(swiftRange.lowerBound, within: utf16)
+        let upperBound = String.UTF16View.Index(swiftRange.upperBound, within: utf16)
         
-        return NSMakeRange(utf16.distance(from: from, to: utf16.startIndex), utf16.distance(from: from, to: to))
-        
+        return NSMakeRange(utf16.distance(from: utf16.startIndex, to: lowerBound), utf16.distance(from: lowerBound, to: upperBound))
+     
     }
 
     /// Returns and NSRange, based on a range of integers
@@ -272,17 +283,25 @@ public extension String {
     
     /// Does a replaceAll with the possibility of setting matching options.
     public func replaceAll (_ regex: NSRegularExpression,
-                            withTemplate: String,
-                            usingMatchingOptions: NSRegularExpression.MatchingOptions) -> String {
+                            withTemplate template: String,
+                            usingMatchingOptions: NSRegularExpression.MatchingOptions)
+        -> String {
         
-        return regex.stringByReplacingMatches(in: self, options: usingMatchingOptions, range: self.wholeStringNsRange, withTemplate: withTemplate)
+        return regex.stringByReplacingMatches(in: self,
+                                              options: usingMatchingOptions,
+                                              range: self.wholeStringNsRange,
+                                              withTemplate: template)
         
     }
     
     /// Does a replaceAll using the default matching options.
-    public func replaceAll(_ regex: NSRegularExpression, withTemplate: String) -> String {
+    public func replaceAll(_ regex: NSRegularExpression,
+                           withTemplate template: String)
+        -> String {
         
-        return replaceAll(regex, withTemplate: withTemplate, usingMatchingOptions: [])
+        return replaceAll(regex,
+                          withTemplate: template,
+                          usingMatchingOptions: [])
         
     }
     
@@ -334,6 +353,12 @@ public struct Matches {
 extension Matches : Collection {
     
     public typealias Index = Int
+    
+    public func index(after i: Int) -> Int {
+        
+        return i + 1
+        
+    }
     
     public var startIndex : Int { return 0 }
     
@@ -424,6 +449,12 @@ extension Match : Collection {
     
     public typealias Index = Int
     
+    public func index(after i: Int) -> Int {
+        
+        return i + 1
+        
+    }
+    
     public var startIndex : Int { return 0 }
     
     public var endIndex : Int { return nsMatch_.numberOfRanges }
@@ -466,7 +497,9 @@ extension Match : Sequence {
     }
     
     public func makeIterator() -> Iterator {
+        
         return Iterator(match: self, endIndex: count)
+        
     }
     
 }
@@ -609,6 +642,13 @@ extension String {
 extension String.Splitter: Collection {
     
     public typealias Index = Int
+    
+    public func index(after i: Int) -> Int {
+        
+        return i + 1
+        
+    }
+
     
     public var startIndex : Int { return 0 }
     
