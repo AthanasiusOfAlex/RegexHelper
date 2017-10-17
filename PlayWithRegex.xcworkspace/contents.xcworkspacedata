@@ -5,6 +5,6 @@
       location = "group:RegexHelper.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:RegexPlayground.playground">
+      location = "group:/Users/louismelahn/Documents/Projects/RegexHelper/RegexPlayground.playground">
    </FileRef>
 </Workspace>

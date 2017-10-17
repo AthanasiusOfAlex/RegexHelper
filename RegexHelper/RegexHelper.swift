@@ -3,7 +3,8 @@
 //  RegexHelper
 //
 //  Created by Louis Melahn on 5/5/16.
-//  Copyright © 2016 Louis Melahn.
+//  Edited 10/17/17
+//  Copyright © 2016, 2017 Louis Melahn.
 //
 //  This file is licensed under the MIT license.
 //
@@ -26,7 +27,7 @@ public extension String {
     
     public subscript (range: Range<Int>) -> String {
         
-        return self[swiftRange(range)]
+        return String(self[swiftRange(range)])
         
     }
 }
@@ -91,47 +92,17 @@ public extension String {
     /// Returns a Swift-String-compatible range, based on an NSRange
     public func swiftRange (_ nsRange: NSRange) -> Range<String.Index>? {
         
-        let utf16 = self.utf16
-        
-        guard
-            
-            let lowerBoundUTF16 = utf16.index(utf16.startIndex,
-                                              offsetBy: nsRange.location,
-                                              limitedBy: utf16.endIndex)
-            
-            else { return nil }
-        
-        guard
-            
-            let upperBoundUTF16 = utf16.index(lowerBoundUTF16,
-                                              offsetBy: nsRange.length,
-                                              limitedBy: utf16.endIndex)
-        
-            else { return nil }
-        
-        
-        guard
-            
-            let from = String.Index(lowerBoundUTF16, within: self),
-            let to = String.Index(upperBoundUTF16, within: self)
-            
-            else { return nil }
-        
-        return from ..< to
+        return Range(nsRange, in: self)
         
     }
     
     /// Returns an NSRange, based on a Swift-String-compatible range
     public func nsRange(_ swiftRange: Range<String.Index>) -> NSRange {
         
-        let utf16 = self.utf16
-        let lowerBound = String.UTF16View.Index(swiftRange.lowerBound, within: utf16)
-        let upperBound = String.UTF16View.Index(swiftRange.upperBound, within: utf16)
+        return NSRange(swiftRange, in: self)
         
-        return NSMakeRange(utf16.distance(from: utf16.startIndex, to: lowerBound), utf16.distance(from: lowerBound, to: upperBound))
-     
     }
-
+    
     /// Returns and NSRange, based on a range of integers
     public func nsRange(_ intRange: Range<Int>) -> NSRange {
         
@@ -192,15 +163,15 @@ public extension String {
     /// Returns an Matches object based on a regex pattern
     /// and an array of NSMatchingOptions.
     public func matches(_ pattern: String,
-                   regexOptions: NSRegularExpression.Options,
-                   matchingOptions: NSRegularExpression.MatchingOptions) -> Matches {
+                        regexOptions: NSRegularExpression.Options,
+                        matchingOptions: NSRegularExpression.MatchingOptions) -> Matches {
         
         assert(validateRegex(pattern), "An invalid regex pattern was given: `\(pattern)`")
         
         let regex = try! NSRegularExpression(pattern: pattern, options: regexOptions)
         return matches(regex, options: matchingOptions)
     }
-
+    
     
     /// Returns an Matches object based on a regex pattern.
     /// Uses the default options.
@@ -219,7 +190,7 @@ public extension String {
 
 // MARK - Adds an `isMatchedBy` function to String for convenience.
 public extension String {
-
+    
     /// Returns `true` if `regex` matches the string (`self`).
     /// This is the base implementation for all the rest.
     public func isMatchedBy(_ regex: NSRegularExpression, matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
@@ -229,13 +200,13 @@ public extension String {
         if let _ = matches.first {
             
             return true
-        
+            
         } else {
             
             return false
             
         }
-    
+        
     }
     
     /// Returns `true` if `regex` matches the string (`self`).
@@ -249,8 +220,8 @@ public extension String {
     /// Returns `true` if `regex` matches the string (`self`).
     /// Uses a string and allows configuring the regex and matching options
     public func isMatchedBy(_ pattern: String,
-                   regexOptions: NSRegularExpression.Options,
-                   matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
+                            regexOptions: NSRegularExpression.Options,
+                            matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
         
         assert(validateRegex(pattern), "Invalid regex pattern given: \(pattern)")
         
@@ -276,7 +247,7 @@ public extension String {
         return isMatchedBy(pattern, regexOptions: [], matchingOptions: [])
         
     }
-
+    
 }
 
 // MARK - Adds a replaceAll function to String
@@ -287,23 +258,23 @@ public extension String {
                             withTemplate template: String,
                             usingMatchingOptions: NSRegularExpression.MatchingOptions)
         -> String {
-        
-        return regex.stringByReplacingMatches(in: self,
-                                              options: usingMatchingOptions,
-                                              range: self.wholeStringNsRange,
-                                              withTemplate: template)
-        
+            
+            return regex.stringByReplacingMatches(in: self,
+                                                  options: usingMatchingOptions,
+                                                  range: self.wholeStringNsRange,
+                                                  withTemplate: template)
+            
     }
     
     /// Does a replaceAll using the default matching options.
     public func replaceAll(_ regex: NSRegularExpression,
                            withTemplate template: String)
         -> String {
-        
-        return replaceAll(regex,
-                          withTemplate: template,
-                          usingMatchingOptions: [])
-        
+            
+            return replaceAll(regex,
+                              withTemplate: template,
+                              usingMatchingOptions: [])
+            
     }
     
     /// Does a replaceAll using a string pattern, with the
@@ -329,12 +300,12 @@ public extension String {
         return replaceAll(pattern, withTemplate: withTemplate, usingRegexOptions: usingRegexOptions, usingMatchingOptions: [])
         
     }
-
+    
     /// Does a replaceAll using a string pattern, using all the default options.
     public func replaceAll(_ pattern: String, withTemplate: String) -> String {
         
         return replaceAll(pattern, withTemplate: withTemplate, usingRegexOptions: [])
-
+        
     }
     
 }
@@ -414,7 +385,7 @@ public struct Match {
         let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
-        return input[input.startIndex..<range!.lowerBound]
+        return String(input[input.startIndex..<range!.lowerBound])
         
     }
     
@@ -423,7 +394,7 @@ public struct Match {
         let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
-        return input[range!.upperBound..<input.endIndex]
+        return String(input[range!.upperBound..<input.endIndex])
         
     }
     
@@ -432,7 +403,7 @@ public struct Match {
         let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "A match was given, but the range it returned was nil")
         
-        return input[range!]
+        return String(input[range!])
     }
     
     fileprivate var input: String
@@ -462,11 +433,11 @@ extension Match : Collection {
     
     public subscript (i: Int) -> String {
         
-        let range = input.swiftRange(nsMatch_.rangeAt(i))
+        let range = input.swiftRange(nsMatch_.range(at: i))
         assert(range != nil, "An invalid index was given")
         
-        return input[range!]
-
+        return String(input[range!])
+        
     }
     
 }
@@ -599,7 +570,7 @@ extension String {
     
     /// This function will attempt to break a string in two
     /// at the first opportunity, eliminating the string that
-    /// matches `sepearatorRegex`. Returns a tuple with the 
+    /// matches `sepearatorRegex`. Returns a tuple with the
     /// front part that has been "broken off" and the remaininder
     /// of the string. For instance,
     /// `"aaaa##aaaaa#aaa".splitFirst("#+")` will return `("aaaa", "aaaaa#aaa")`
@@ -639,7 +610,7 @@ extension String {
     /// Returns a `String.Splitter` object that represents the pieces
     /// of a string that has been split according to white space (including
     /// newlines and tabs). The `String.Splitter` can be used in a `for` loop
-    /// or converted into an array by using the appropriate cast 
+    /// or converted into an array by using the appropriate cast
     /// (e.g., `Array(mySplitter)`).
     public var split: String.Splitter {
         
@@ -658,7 +629,7 @@ extension String.Splitter: Collection {
         return i + 1
         
     }
-
+    
     
     public var startIndex : Int { return 0 }
     
@@ -681,3 +652,4 @@ extension String.Splitter: Collection {
         return ""
     }
 }
+

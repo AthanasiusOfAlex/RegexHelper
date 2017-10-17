@@ -2,8 +2,8 @@
 //  RegexHelper.h
 //  RegexHelper
 //
-//  Created by Louis Melahn on 5/5/16.
-//  Copyright © 2016 Louis Melahn. All rights reserved.
+//  Created by Louis Melahn on 10/17/17.
+//  Copyright © 2017 Louis Melahn. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

@@ -3,7 +3,8 @@
 //  RegexHelperTests
 //
 //  Created by Louis Melahn on 5/5/16.
-//  Copyright © 2016 Louis Melahn.
+//  Edited 10/17/17
+//  Copyright © 2016, 2017 Louis Melahn.
 //
 //  This file is licensed under the MIT license.
 //
@@ -41,7 +42,7 @@ class RegexHelperTests: XCTestCase {
     }
     
     func testIsMatchOf() {
-    
+        
         let testString = "Hello, ☺️😇 World!"
         let regex = try! NSRegularExpression(pattern: "hello", options: [ .caseInsensitive ])
         
@@ -58,14 +59,14 @@ class RegexHelperTests: XCTestCase {
         let regex = try! NSRegularExpression(pattern: "world", options: [ .caseInsensitive ])
         
         XCTAssert(testString.replaceAll(regex, withTemplate: "there",
-            usingMatchingOptions: [])=="Hello, ☺️😇 there!")
+                                        usingMatchingOptions: [])=="Hello, ☺️😇 there!")
         XCTAssert(testString.replaceAll("world", withTemplate: "there", usingRegexOptions: [ .caseInsensitive ])=="Hello, ☺️😇 there!")
         
         
         XCTAssert(testString.replaceAll("world", withTemplate: "there")==testString)
         XCTAssert(testString.replaceAll("☺️😇", withTemplate: "there,")=="Hello, there, World!")
         // The following test fails, apparently, there is a bug in `NSRegularExpression`
-        //XCTAssert(testString.replaceAll("[☺️😇]", withTemplate: "there,")=="Hello, there,there, World!")
+        // XCTAssert(testString.replaceAll("[☺️😇]", withTemplate: "there,")=="Hello, there,there, World!")
         
     }
     
@@ -84,7 +85,7 @@ class RegexHelperTests: XCTestCase {
         
         (first, rest) = "#######".splitFirst(usingSeparator: "#+")
         XCTAssert(first==nil && rest==nil)
-
+        
         (first, rest) = "".splitFirst(usingSeparator: "#+")
         XCTAssert(first==nil && rest==nil)
         

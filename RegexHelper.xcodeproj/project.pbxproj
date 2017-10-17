@@ -3,117 +3,94 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5244E1BB1CDBB7B900D96E87 /* RegexHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5244E1BA1CDBB7B900D96E87 /* RegexHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5244E1C21CDBB7B900D96E87 /* RegexHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5244E1B71CDBB7B900D96E87 /* RegexHelper.framework */; };
-		5244E1C71CDBB7B900D96E87 /* RegexHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */; };
-		5244E1D21CDBB80200D96E87 /* RegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244E1D11CDBB80200D96E87 /* RegexHelper.swift */; };
-		527478B51CDD3A6F005EE33C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 527478B31CDD3A6F005EE33C /* README.md */; };
-		52A412C81CDD3C0E00DC10D5 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 52A412C61CDD3C0E00DC10D5 /* LICENSE.md */; };
+		2A63E80A1F9650E90076E847 /* RegexHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A63E8001F9650E90076E847 /* RegexHelper.framework */; };
+		2A63E80F1F9650E90076E847 /* RegexHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63E80E1F9650E90076E847 /* RegexHelperTests.swift */; };
+		2A63E8111F9650E90076E847 /* RegexHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A63E8031F9650E90076E847 /* RegexHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A63E81B1F96512D0076E847 /* RegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63E81A1F96512D0076E847 /* RegexHelper.swift */; };
+		2AE96FED1F9657750010F761 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2AE96FEB1F9657750010F761 /* README.md */; };
+		2AE96FEE1F9657750010F761 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 2AE96FEC1F9657750010F761 /* LICENSE.md */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		52A412C51CDD3BF200DC10D5 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.md";
-			fileType = pattern.proxy;
-			isEditable = 1;
-			outputFiles = (
-			);
-			script = "";
-		};
-/* End PBXBuildRule section */
-
 /* Begin PBXContainerItemProxy section */
-		5244E1C31CDBB7B900D96E87 /* PBXContainerItemProxy */ = {
+		2A63E80B1F9650E90076E847 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5244E1AE1CDBB7B900D96E87 /* Project object */;
+			containerPortal = 2A63E7F71F9650E90076E847 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5244E1B61CDBB7B900D96E87;
+			remoteGlobalIDString = 2A63E7FF1F9650E90076E847;
 			remoteInfo = RegexHelper;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5244E1B71CDBB7B900D96E87 /* RegexHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RegexHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5244E1BA1CDBB7B900D96E87 /* RegexHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegexHelper.h; sourceTree = "<group>"; };
-		5244E1BC1CDBB7B900D96E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5244E1C11CDBB7B900D96E87 /* RegexHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegexHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelperTests.swift; sourceTree = "<group>"; };
-		5244E1C81CDBB7B900D96E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5244E1D11CDBB80200D96E87 /* RegexHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexHelper.swift; sourceTree = "<group>"; };
-		527478B31CDD3A6F005EE33C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = /Users/lmelahn/Documents/Projects/RegexHelper/README.md; sourceTree = "<absolute>"; };
-		52A412C61CDD3C0E00DC10D5 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		52A412C71CDD3C0E00DC10D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2A63E8001F9650E90076E847 /* RegexHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RegexHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A63E8031F9650E90076E847 /* RegexHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegexHelper.h; sourceTree = "<group>"; };
+		2A63E8041F9650E90076E847 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A63E8091F9650E90076E847 /* RegexHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegexHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A63E80E1F9650E90076E847 /* RegexHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelperTests.swift; sourceTree = "<group>"; };
+		2A63E8101F9650E90076E847 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A63E81A1F96512D0076E847 /* RegexHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexHelper.swift; sourceTree = "<group>"; };
+		2AE96FEB1F9657750010F761 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2AE96FEC1F9657750010F761 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5244E1B31CDBB7B900D96E87 /* Frameworks */ = {
+		2A63E7FC1F9650E90076E847 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5244E1BE1CDBB7B900D96E87 /* Frameworks */ = {
+		2A63E8061F9650E90076E847 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5244E1C21CDBB7B900D96E87 /* RegexHelper.framework in Frameworks */,
+				2A63E80A1F9650E90076E847 /* RegexHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2A20A6A91F9611A70065286A /* Recovered References */ = {
+		2A63E7F61F9650E90076E847 = {
 			isa = PBXGroup;
 			children = (
-				527478B31CDD3A6F005EE33C /* README.md */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		5244E1AD1CDBB7B900D96E87 = {
-			isa = PBXGroup;
-			children = (
-				52A412C61CDD3C0E00DC10D5 /* LICENSE.md */,
-				52A412C71CDD3C0E00DC10D5 /* README.md */,
-				5244E1B91CDBB7B900D96E87 /* RegexHelper */,
-				5244E1C51CDBB7B900D96E87 /* RegexHelperTests */,
-				5244E1B81CDBB7B900D96E87 /* Products */,
-				2A20A6A91F9611A70065286A /* Recovered References */,
+				2AE96FEC1F9657750010F761 /* LICENSE.md */,
+				2AE96FEB1F9657750010F761 /* README.md */,
+				2A63E8021F9650E90076E847 /* RegexHelper */,
+				2A63E80D1F9650E90076E847 /* RegexHelperTests */,
+				2A63E8011F9650E90076E847 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		5244E1B81CDBB7B900D96E87 /* Products */ = {
+		2A63E8011F9650E90076E847 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5244E1B71CDBB7B900D96E87 /* RegexHelper.framework */,
-				5244E1C11CDBB7B900D96E87 /* RegexHelperTests.xctest */,
+				2A63E8001F9650E90076E847 /* RegexHelper.framework */,
+				2A63E8091F9650E90076E847 /* RegexHelperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5244E1B91CDBB7B900D96E87 /* RegexHelper */ = {
+		2A63E8021F9650E90076E847 /* RegexHelper */ = {
 			isa = PBXGroup;
 			children = (
-				5244E1BA1CDBB7B900D96E87 /* RegexHelper.h */,
-				5244E1BC1CDBB7B900D96E87 /* Info.plist */,
-				5244E1D11CDBB80200D96E87 /* RegexHelper.swift */,
+				2A63E8031F9650E90076E847 /* RegexHelper.h */,
+				2A63E8041F9650E90076E847 /* Info.plist */,
+				2A63E81A1F96512D0076E847 /* RegexHelper.swift */,
 			);
 			path = RegexHelper;
 			sourceTree = "<group>";
 		};
-		5244E1C51CDBB7B900D96E87 /* RegexHelperTests */ = {
+		2A63E80D1F9650E90076E847 /* RegexHelperTests */ = {
 			isa = PBXGroup;
 			children = (
-				5244E1C61CDBB7B900D96E87 /* RegexHelperTests.swift */,
-				5244E1C81CDBB7B900D96E87 /* Info.plist */,
+				2A63E80E1F9650E90076E847 /* RegexHelperTests.swift */,
+				2A63E8101F9650E90076E847 /* Info.plist */,
 			);
 			path = RegexHelperTests;
 			sourceTree = "<group>";
@@ -121,101 +98,103 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5244E1B41CDBB7B900D96E87 /* Headers */ = {
+		2A63E7FD1F9650E90076E847 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5244E1BB1CDBB7B900D96E87 /* RegexHelper.h in Headers */,
+				2A63E8111F9650E90076E847 /* RegexHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5244E1B61CDBB7B900D96E87 /* RegexHelper */ = {
+		2A63E7FF1F9650E90076E847 /* RegexHelper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5244E1CB1CDBB7B900D96E87 /* Build configuration list for PBXNativeTarget "RegexHelper" */;
+			buildConfigurationList = 2A63E8141F9650E90076E847 /* Build configuration list for PBXNativeTarget "RegexHelper" */;
 			buildPhases = (
-				5244E1B21CDBB7B900D96E87 /* Sources */,
-				5244E1B31CDBB7B900D96E87 /* Frameworks */,
-				5244E1B41CDBB7B900D96E87 /* Headers */,
-				5244E1B51CDBB7B900D96E87 /* Resources */,
+				2A63E7FB1F9650E90076E847 /* Sources */,
+				2A63E7FC1F9650E90076E847 /* Frameworks */,
+				2A63E7FD1F9650E90076E847 /* Headers */,
+				2A63E7FE1F9650E90076E847 /* Resources */,
 			);
 			buildRules = (
-				52A412C51CDD3BF200DC10D5 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
 			name = RegexHelper;
 			productName = RegexHelper;
-			productReference = 5244E1B71CDBB7B900D96E87 /* RegexHelper.framework */;
+			productReference = 2A63E8001F9650E90076E847 /* RegexHelper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5244E1C01CDBB7B900D96E87 /* RegexHelperTests */ = {
+		2A63E8081F9650E90076E847 /* RegexHelperTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5244E1CE1CDBB7B900D96E87 /* Build configuration list for PBXNativeTarget "RegexHelperTests" */;
+			buildConfigurationList = 2A63E8171F9650E90076E847 /* Build configuration list for PBXNativeTarget "RegexHelperTests" */;
 			buildPhases = (
-				5244E1BD1CDBB7B900D96E87 /* Sources */,
-				5244E1BE1CDBB7B900D96E87 /* Frameworks */,
-				5244E1BF1CDBB7B900D96E87 /* Resources */,
+				2A63E8051F9650E90076E847 /* Sources */,
+				2A63E8061F9650E90076E847 /* Frameworks */,
+				2A63E8071F9650E90076E847 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5244E1C41CDBB7B900D96E87 /* PBXTargetDependency */,
+				2A63E80C1F9650E90076E847 /* PBXTargetDependency */,
 			);
 			name = RegexHelperTests;
 			productName = RegexHelperTests;
-			productReference = 5244E1C11CDBB7B900D96E87 /* RegexHelperTests.xctest */;
+			productReference = 2A63E8091F9650E90076E847 /* RegexHelperTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		5244E1AE1CDBB7B900D96E87 /* Project object */ = {
+		2A63E7F71F9650E90076E847 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Louis Melahn";
 				TargetAttributes = {
-					5244E1B61CDBB7B900D96E87 = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+					2A63E7FF1F9650E90076E847 = {
+						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
 					};
-					5244E1C01CDBB7B900D96E87 = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+					2A63E8081F9650E90076E847 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 5244E1B11CDBB7B900D96E87 /* Build configuration list for PBXProject "RegexHelper" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			buildConfigurationList = 2A63E7FA1F9650E90076E847 /* Build configuration list for PBXProject "RegexHelper" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 5244E1AD1CDBB7B900D96E87;
-			productRefGroup = 5244E1B81CDBB7B900D96E87 /* Products */;
+			mainGroup = 2A63E7F61F9650E90076E847;
+			productRefGroup = 2A63E8011F9650E90076E847 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5244E1B61CDBB7B900D96E87 /* RegexHelper */,
-				5244E1C01CDBB7B900D96E87 /* RegexHelperTests */,
+				2A63E7FF1F9650E90076E847 /* RegexHelper */,
+				2A63E8081F9650E90076E847 /* RegexHelperTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5244E1B51CDBB7B900D96E87 /* Resources */ = {
+		2A63E7FE1F9650E90076E847 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AE96FEE1F9657750010F761 /* LICENSE.md in Resources */,
+				2AE96FED1F9657750010F761 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5244E1BF1CDBB7B900D96E87 /* Resources */ = {
+		2A63E8071F9650E90076E847 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,41 +204,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5244E1B21CDBB7B900D96E87 /* Sources */ = {
+		2A63E7FB1F9650E90076E847 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A412C81CDD3C0E00DC10D5 /* LICENSE.md in Sources */,
-				527478B51CDD3A6F005EE33C /* README.md in Sources */,
-				5244E1D21CDBB80200D96E87 /* RegexHelper.swift in Sources */,
+				2A63E81B1F96512D0076E847 /* RegexHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5244E1BD1CDBB7B900D96E87 /* Sources */ = {
+		2A63E8051F9650E90076E847 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5244E1C71CDBB7B900D96E87 /* RegexHelperTests.swift in Sources */,
+				2A63E80F1F9650E90076E847 /* RegexHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5244E1C41CDBB7B900D96E87 /* PBXTargetDependency */ = {
+		2A63E80C1F9650E90076E847 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5244E1B61CDBB7B900D96E87 /* RegexHelper */;
-			targetProxy = 5244E1C31CDBB7B900D96E87 /* PBXContainerItemProxy */;
+			target = 2A63E7FF1F9650E90076E847 /* RegexHelper */;
+			targetProxy = 2A63E80B1F9650E90076E847 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		5244E1C91CDBB7B900D96E87 /* Debug */ = {
+		2A63E8121F9650E90076E847 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -268,6 +246,7 @@
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -278,6 +257,7 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -286,7 +266,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -300,22 +280,24 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		5244E1CA1CDBB7B900D96E87 /* Release */ = {
+		2A63E8131F9650E90076E847 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -324,6 +306,7 @@
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -334,6 +317,7 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -342,7 +326,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -350,7 +334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -359,11 +343,12 @@
 			};
 			name = Release;
 		};
-		5244E1CC1CDBB7B900D96E87 /* Debug */ = {
+		2A63E8151F9650E90076E847 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -373,19 +358,20 @@
 				INFOPLIST_FILE = RegexHelper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lmelahn.RegexHelper;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
-		5244E1CD1CDBB7B900D96E87 /* Release */ = {
+		2A63E8161F9650E90076E847 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -395,68 +381,72 @@
 				INFOPLIST_FILE = RegexHelper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lmelahn.RegexHelper;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
-		5244E1CF1CDBB7B900D96E87 /* Debug */ = {
+		2A63E8181F9650E90076E847 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = RegexHelperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelperTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lmelahn.RegexHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
-		5244E1D01CDBB7B900D96E87 /* Release */ = {
+		2A63E8191F9650E90076E847 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = RegexHelperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LCPlusPlus.RegexHelperTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lmelahn.RegexHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5244E1B11CDBB7B900D96E87 /* Build configuration list for PBXProject "RegexHelper" */ = {
+		2A63E7FA1F9650E90076E847 /* Build configuration list for PBXProject "RegexHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5244E1C91CDBB7B900D96E87 /* Debug */,
-				5244E1CA1CDBB7B900D96E87 /* Release */,
+				2A63E8121F9650E90076E847 /* Debug */,
+				2A63E8131F9650E90076E847 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5244E1CB1CDBB7B900D96E87 /* Build configuration list for PBXNativeTarget "RegexHelper" */ = {
+		2A63E8141F9650E90076E847 /* Build configuration list for PBXNativeTarget "RegexHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5244E1CC1CDBB7B900D96E87 /* Debug */,
-				5244E1CD1CDBB7B900D96E87 /* Release */,
+				2A63E8151F9650E90076E847 /* Debug */,
+				2A63E8161F9650E90076E847 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5244E1CE1CDBB7B900D96E87 /* Build configuration list for PBXNativeTarget "RegexHelperTests" */ = {
+		2A63E8171F9650E90076E847 /* Build configuration list for PBXNativeTarget "RegexHelperTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5244E1CF1CDBB7B900D96E87 /* Debug */,
-				5244E1D01CDBB7B900D96E87 /* Release */,
+				2A63E8181F9650E90076E847 /* Debug */,
+				2A63E8191F9650E90076E847 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 5244E1AE1CDBB7B900D96E87 /* Project object */;
+	rootObject = 2A63E7F71F9650E90076E847 /* Project object */;
 }
