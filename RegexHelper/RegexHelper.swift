@@ -137,7 +137,7 @@ public extension String {
     /// - Returns:
     ///   An array of NSTextCheckingResult objects.
     private func nsMatches (_ regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions) -> [NSTextCheckingResult] {
-        return regex.matches(in: self, options: options, range:  NSRange(self.startIndex..., in: self))
+        return regex.matches(in: self, options: options, range:  self.wholeStringNsRange)
     }
     
     private func validateRegex(_ pattern: String) -> Bool {
@@ -156,16 +156,31 @@ public extension String {
     }
     
     /// Returns an Matches object based on a regex pattern.
-    /// Uses default regex and matching options.
+    /// Uses the default regex and matching options.
+    ///
+    /// - Parameters:
+    ///    - pattern: a string with the Regex pattern.
+    ///
+    /// - Returns:
+    ///   A Matches object.
+    ///
     public func matches(_ pattern: String) -> Matches {
         
         return matches(pattern, regexOptions: [], matchingOptions: [])
         
     }
     
-    /// Returns an Matches object based on a regex pattern.
+    /// Returns a Matches object based on a regex pattern.
     /// Uses matching options, the the regex options need to be specified.
     /// Equivalent to `String.matches(`_pattern_`, regexOptions: `_options_`, [])`.
+    ///
+    /// - Parameters:
+    ///    - pattern: a string with the regex pattern.
+    ///    - regexOptions: the regular expression options
+    ///
+    /// - Returns:
+    ///   A Matches object.
+    ///
     public func matches(_ pattern: String, regexOptions: NSRegularExpression.Options) -> Matches {
         
         return matches(pattern, regexOptions: regexOptions, matchingOptions: [])
@@ -173,7 +188,16 @@ public extension String {
     }
     
     /// Returns an Matches object based on a regex pattern
-    /// and an array of NSMatchingOptions.
+    /// regex options, and matching options.
+    ///
+    /// - Parameters:
+    ///    - pattern: a string with the regex pattern.
+    ///    - regexOptions: the regular expression options
+    ///    - matchingOptions: the the matching options
+    ///
+    /// - Returns:
+    ///   A Matches object.
+    ///
     public func matches(_ pattern: String,
                         regexOptions: NSRegularExpression.Options,
                         matchingOptions: NSRegularExpression.MatchingOptions) -> Matches {
@@ -187,6 +211,13 @@ public extension String {
     
     /// Returns an Matches object based on a regex pattern.
     /// Uses the default options.
+    ///
+    /// - Parameters:
+    ///    - pattern: a string with the regex pattern.
+    ///
+    /// - Returns:
+    ///   A Matches object.
+    ///
     public func matches(_ regex: NSRegularExpression) -> Matches {
         return matches(regex, options: [])
     }
@@ -203,8 +234,15 @@ public extension String {
 // MARK - Adds an `isMatchedBy` function to String for convenience.
 public extension String {
     
-    /// Returns `true` if `regex` matches the string (`self`).
+    /// Tests if a string is matched by a given regular expression.
     /// This is the base implementation for all the rest.
+    /// - Parameters:
+    ///   - regex: an NSRegularExpression object
+    ///   - matchingOptions: the matching options
+    ///
+    /// - Returns:
+    /// Bool: `true` if `regex` matches the string (`self`); `false` otherwise.
+    ///
     public func isMatchedBy(_ regex: NSRegularExpression, matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
         
         let matches = self.matches(regex, options: matchingOptions)
@@ -221,16 +259,32 @@ public extension String {
         
     }
     
-    /// Returns `true` if `regex` matches the string (`self`).
+    /// Tests if a string is matched by a given regular expression.
     /// Uses a regex with the default matching options.
+    ///
+    /// - Parameters:
+    ///   - regex: an NSRegularExpression object
+    ///
+    /// - Returns:
+    ///   Bool: `true` if `regex` matches the string (`self`); `false` otherwise.
+    ///
     public func isMatchedBy(_ regex: NSRegularExpression) -> Bool {
         
         return isMatchedBy(regex, matchingOptions: [])
         
     }
     
-    /// Returns `true` if `regex` matches the string (`self`).
-    /// Uses a string and allows configuring the regex and matching options
+    /// Tests if a string is matched by a given regular expression.
+    /// Uses a string and allows configuring the regex and matching options.
+    ///
+    /// - Parameters:
+    ///   - pattern: the String containing the pattern
+    ///   - regexOptions: the regex options
+    ///   - matchingOptions: the matching options
+    ///
+    /// - Returns:
+    ///   Bool: `true` if `regex` matches the string (`self`); `false` otherwise.
+    ///
     public func isMatchedBy(_ pattern: String,
                             regexOptions: NSRegularExpression.Options,
                             matchingOptions: NSRegularExpression.MatchingOptions) -> Bool {
@@ -243,17 +297,32 @@ public extension String {
         
     }
     
-    /// Returns `true` if `regex` matches the string (`self`).
+    /// Tests if a string is matched by a given regular expression.
     /// Uses a string and allows configuring the regex options,
     /// but uses the default matching options
+    ///
+    /// - Parameters:
+    ///   - pattern: the String containing the pattern
+    ///   - regexOptions: the regex options
+    ///
+    /// - Returns:
+    ///   Bool: `true` if `regex` matches the string (`self`); `false` otherwise.
+    ///
     public func isMatchedBy(_ pattern: String, regexOptions: NSRegularExpression.Options) -> Bool {
         
         return isMatchedBy(pattern, regexOptions: regexOptions, matchingOptions: [])
         
     }
     
-    /// Returns `true` if `regex` matches the string (`self`).
+    /// Tests if a string is matched by a given regular expression.
     /// Uses a string with the default regex and matching options
+    ///
+    /// - Parameters:
+    ///   - pattern: the String containing the pattern
+    ///
+    /// - Returns:
+    ///   Bool: `true` if `regex` matches the string (`self`); `false` otherwise.
+    ///
     public func isMatchedBy(_ pattern: String) -> Bool {
         
         return isMatchedBy(pattern, regexOptions: [], matchingOptions: [])
@@ -296,6 +365,8 @@ public extension String {
                            usingRegexOptions: NSRegularExpression.Options,
                            usingMatchingOptions: NSRegularExpression.MatchingOptions) -> String {
         
+        assert(validateRegex(pattern), "Invalid regex pattern given: \(pattern)")
+
         let regex = try! NSRegularExpression(pattern: pattern, options: usingRegexOptions)
         
         return replaceAll(regex, withTemplate: withTemplate, usingMatchingOptions: usingMatchingOptions)
