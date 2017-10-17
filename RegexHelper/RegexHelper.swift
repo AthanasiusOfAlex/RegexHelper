@@ -11,21 +11,21 @@
 
 import Foundation
 
-public extension String {
+private extension String {
     
-    public func getCharacterFromIntIndex (_ i: Int) -> Character {
-        return self[self.characters.index(self.startIndex, offsetBy: i)]
+    func getCharacterFromIntIndex (_ i: Int) -> Character {
+        return self[self.index(self.startIndex, offsetBy: i)]
     }
     
-    public subscript (i: Int) -> String {
+    subscript (i: Int) -> String {
         
         assert(i >= 0, "Index is too small")
-        assert(i <= self.characters.count, "Index is too large")
+        assert(i <= self.count, "Index is too large")
         
-        return String(getCharacterFromIntIndex(i) as Character)
+        return String(getCharacterFromIntIndex(i))
     }
     
-    public subscript (range: Range<Int>) -> String {
+    subscript (range: Range<Int>) -> String {
         
         return String(self[swiftRange(range)])
         
@@ -33,7 +33,7 @@ public extension String {
 }
 
 // MARK - Adds a property returning the range representing the whole string.
-public extension String {
+private extension String {
     
     /// Returns the range of the whole string.
     var wholeString: Range<String.Index> {
@@ -45,23 +45,23 @@ public extension String {
     /// Returns the range of the whole string, as an NSRange
     var wholeStringNsRange: NSRange {
         
-        return NSMakeRange(0, self.utf16.count)
+        return NSRange(self.wholeString, in: self)
         
     }
     
 }
 
 // MARK - Adds methods to convert between Swift String ranges and `NSRange`s and ranges of integers
-public extension String {
+private extension String {
     
     /// Returns a Swift-String-compatible range based on a range of integers
-    public func swiftRange (_ intRange: Range<Int>) -> Range<String.Index> {
+    func swiftRange (_ intRange: Range<Int>) -> Range<String.Index> {
         
         assert (intRange.lowerBound >= 0, "Start index is too small (less than 0)")
         
         var inputStartIndex = intRange.lowerBound
         var inputEndIndex = intRange.upperBound
-        let totalCharacters = self.characters.count
+        let totalCharacters = self.count
         
         // If the start index is greater than the number of characters,
         // reduce the start index to the number characters, so as to
@@ -80,9 +80,9 @@ public extension String {
             
         }
         
-        let outputStartIndex = characters.index(startIndex, offsetBy: inputStartIndex)
+        let outputStartIndex = self.index(startIndex, offsetBy: inputStartIndex)
         
-        let outputEndIndex = characters.index(outputStartIndex,
+        let outputEndIndex = self.index(outputStartIndex,
                                               offsetBy: inputEndIndex - inputStartIndex)
         
         return Range(outputStartIndex ..< outputEndIndex)
@@ -90,27 +90,26 @@ public extension String {
     }
     
     /// Returns a Swift-String-compatible range, based on an NSRange
-    public func swiftRange (_ nsRange: NSRange) -> Range<String.Index>? {
+    func swiftRange (_ nsRange: NSRange) -> Range<String.Index>? {
         
         return Range(nsRange, in: self)
         
     }
     
     /// Returns an NSRange, based on a Swift-String-compatible range
-    public func nsRange(_ swiftRange: Range<String.Index>) -> NSRange {
+    func nsRange(_ swiftRange: Range<String.Index>) -> NSRange {
         
         return NSRange(swiftRange, in: self)
         
     }
     
     /// Returns and NSRange, based on a range of integers
-    public func nsRange(_ intRange: Range<Int>) -> NSRange {
+    func nsRange(_ intRange: Range<Int>) -> NSRange {
         
         let swiftRange = self.swiftRange(intRange)
         return nsRange(swiftRange)
         
     }
-    
     
 }
 
@@ -118,17 +117,30 @@ public extension String {
 //        a pattern to match, and returns an Match object with all the matches
 public extension String {
     
-    fileprivate func nsMatches (_ regex: NSRegularExpression) -> [NSTextCheckingResult] {
+    /// This overload uses the default options.
+    /// - Parameters:
+    ///   - regex: The NSRegularExpression object.
+    ///
+    /// - Returns:
+    ///   An array of NSTextCheckingResult objects.
+    private func nsMatches (_ regex: NSRegularExpression) -> [NSTextCheckingResult] {
         return self.nsMatches(regex, options: [])
     }
     
-    fileprivate func nsMatches (_ regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions) -> [NSTextCheckingResult] {
-        // NOTE that NSMakeRange counts using utf16 code points, not the total number of characters.
-        // Hence, I must give it self.utf16.count, NOT self.characters.count.
-        return regex.matches(in: self, options: options, range: NSMakeRange(0, self.utf16.count))
+    /// This method returns all the matches that result from a given regular expression.
+    /// It does low-level access to the NSRegularExpression API.
+    ///
+    /// - Parameters:
+    ///   - regex: The NSRegularExpression object.
+    ///   - options: The object containing the matching options.
+    ///
+    /// - Returns:
+    ///   An array of NSTextCheckingResult objects.
+    private func nsMatches (_ regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions) -> [NSTextCheckingResult] {
+        return regex.matches(in: self, options: options, range:  NSRange(self.startIndex..., in: self))
     }
     
-    fileprivate func validateRegex(_ pattern: String) -> Bool {
+    private func validateRegex(_ pattern: String) -> Bool {
         
         do {
             
@@ -312,8 +324,8 @@ public extension String {
 
 public struct Matches {
     
-    fileprivate var nsMatches: [NSTextCheckingResult]
-    fileprivate var input: String
+    private var nsMatches: [NSTextCheckingResult]
+    private var input: String
     
     init(matches: [NSTextCheckingResult], input: String) {
         self.nsMatches = matches
@@ -406,8 +418,8 @@ public struct Match {
         return String(input[range!])
     }
     
-    fileprivate var input: String
-    fileprivate var nsMatch_: NSTextCheckingResult
+    private var input: String
+    private var nsMatch_: NSTextCheckingResult
     
     init (match: NSTextCheckingResult, input: String) {
         self.nsMatch_ = match
