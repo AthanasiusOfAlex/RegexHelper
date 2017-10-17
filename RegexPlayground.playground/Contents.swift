@@ -5,25 +5,12 @@ import RegexHelper
 
 var str = "We hold these éh☺️ Truths to be self-evident"
 
+
 extension String {
-    
-    private func dropFirst() -> String {
         
-        if self.isEmpty {
-            
-            return self
-            
-        } else {
-            
-            return self[self.index(self.startIndex, offsetBy: 1) ..< self.endIndex]
-            
-        }
-        
-    }
-    
     private func firstLetterUppercased() -> String {
         
-        if let firstLetter = self.characters.first {
+        if let firstLetter = self.first {
             
             return String(firstLetter).uppercased() + self.dropFirst()
             
