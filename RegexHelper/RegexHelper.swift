@@ -334,7 +334,16 @@ public extension String {
 // MARK - Adds a replaceAll function to String
 public extension String {
     
-    /// Does a replaceAll with the possibility of setting matching options.
+    /// Does a replaceAll using an NSRegularExpression with the possibility
+    /// of setting matching options.
+    ///
+    /// - Parameters:
+    ///   - regex: the NSRegularExpression object representing what to search for.
+    ///   - withTemplate: the template with which finds will be replaced.
+    ///   - usingMatchingOptions: the matching options that will be used.
+    ///
+    /// - Returns: a new String with all replacements made.
+    ///
     public func replaceAll (_ regex: NSRegularExpression,
                             withTemplate template: String,
                             usingMatchingOptions: NSRegularExpression.MatchingOptions)
@@ -347,7 +356,14 @@ public extension String {
             
     }
     
-    /// Does a replaceAll using the default matching options.
+    /// Does a replaceAll using an NSRegularExpression object, with the default options.
+    ///
+    /// - Parameters:
+    ///   - regex: the NSRegularExpression object representing what to search for
+    ///   - withTemplate: the template with which finds will be replaced.
+    ///
+    /// - Returns: a new String with all replacements made.
+    ///
     public func replaceAll(_ regex: NSRegularExpression,
                            withTemplate template: String)
         -> String {
@@ -358,8 +374,17 @@ public extension String {
             
     }
     
-    /// Does a replaceAll using a string pattern, with the
-    /// possibility of setting regex and matching options.
+    /// Does a replaceAll using a String pattern, with the possibility of setting
+    /// regex and matching options.
+    ///
+    /// - Parameters:
+    ///   - pattern: the String representing what to search for
+    ///   - withTemplate: the template with which finds will be replaced.
+    ///   - usingRegexOptions: the regex options.
+    ///   - usingMatchingOptions: the matching options.
+    ///
+    /// - Returns: a new String with all replacements made.
+    ///
     public func replaceAll(_ pattern: String,
                            withTemplate: String,
                            usingRegexOptions: NSRegularExpression.Options,
@@ -373,9 +398,16 @@ public extension String {
         
     }
     
-    /// Does a replaceAll using a string pattern, with
-    /// the possibility of setting the regex options, but
-    /// using the default matching options
+    /// Does a replaceAll using a String pattern, with the possibility of setting
+    /// regex options, and using the default matching options.
+    ///
+    /// - Parameters:
+    ///   - pattern: the String representing what to search for
+    ///   - withTemplate: the template with which finds will be replaced.
+    ///   - usingRegexOptions: the regex options.
+    ///
+    /// - Returns: a new String with all replacements made.
+    ///
     public func replaceAll(_ pattern: String,
                            withTemplate: String,
                            usingRegexOptions: NSRegularExpression.Options) -> String {
@@ -384,7 +416,14 @@ public extension String {
         
     }
     
-    /// Does a replaceAll using a string pattern, using all the default options.
+    /// Does a replaceAll using a String pattern, with all the default options.
+    ///
+    /// - Parameters:
+    ///   - pattern: the String representing what to search for
+    ///   - withTemplate: the template with which finds will be replaced.
+    ///
+    /// - Returns: a new String with all replacements made.
+    ///
     public func replaceAll(_ pattern: String, withTemplate: String) -> String {
         
         return replaceAll(pattern, withTemplate: withTemplate, usingRegexOptions: [])
@@ -393,6 +432,7 @@ public extension String {
     
 }
 
+/// Represents the matches found after searching for a regular expression.
 public struct Matches {
     
     private var nsMatches: [NSTextCheckingResult]
@@ -461,8 +501,11 @@ extension Matches : Sequence {
     }
 }
 
+/// Represents each individual match.
+///
 public struct Match {
     
+    /// Everything in the string previous to the match.
     public var pre: String {
         
         let range = input.swiftRange(nsMatch_.range)
@@ -472,6 +515,7 @@ public struct Match {
         
     }
     
+    /// Everything in the string after the match.
     public var post: String {
         
         let range = input.swiftRange(nsMatch_.range)
@@ -481,6 +525,7 @@ public struct Match {
         
     }
     
+    /// The text actually matched.
     public var hit: String {
         
         let range = input.swiftRange(nsMatch_.range)
@@ -584,7 +629,10 @@ extension Match {
     
     public var range: Range<String.Index> {
         
-        return input.swiftRange(nsMatch_.range)!
+        let range = input.swiftRange(nsMatch_.range)
+        assert(range != nil, "An invalid index was given")
+
+        return range!
         
     }
     
@@ -695,6 +743,7 @@ extension String {
     /// newlines and tabs). The `String.Splitter` can be used in a `for` loop
     /// or converted into an array by using the appropriate cast
     /// (e.g., `Array(mySplitter)`).
+    ///
     public var split: String.Splitter {
         
         return self.split(usingSeprator: "\\s+")
