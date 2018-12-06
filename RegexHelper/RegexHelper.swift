@@ -83,7 +83,7 @@ private extension String {
         let outputStartIndex = self.index(startIndex, offsetBy: inputStartIndex)
         
         let outputEndIndex = self.index(outputStartIndex,
-                                              offsetBy: inputEndIndex - inputStartIndex)
+                                        offsetBy: inputEndIndex - inputStartIndex)
         
         return Range(outputStartIndex ..< outputEndIndex)
         
@@ -140,7 +140,7 @@ public extension String {
         return regex.matches(in: self, options: options, range:  self.wholeStringNsRange)
     }
     
-    private func validateRegex(_ pattern: String) -> Bool {
+    fileprivate func validateRegex(_ pattern: String) -> Bool {
         
         do {
             
@@ -391,7 +391,7 @@ public extension String {
                            usingMatchingOptions: NSRegularExpression.MatchingOptions) -> String {
         
         assert(validateRegex(pattern), "Invalid regex pattern given: \(pattern)")
-
+        
         let regex = try! NSRegularExpression(pattern: pattern, options: usingRegexOptions)
         
         return replaceAll(regex, withTemplate: withTemplate, usingMatchingOptions: usingMatchingOptions)
@@ -435,8 +435,8 @@ public extension String {
 /// Represents the matches found after searching for a regular expression.
 public struct Matches {
     
-    private var nsMatches: [NSTextCheckingResult]
-    private var input: String
+    fileprivate var nsMatches: [NSTextCheckingResult]
+    fileprivate var input: String
     
     init(matches: [NSTextCheckingResult], input: String) {
         self.nsMatches = matches
@@ -534,8 +534,8 @@ public struct Match {
         return String(input[range!])
     }
     
-    private var input: String
-    private var nsMatch_: NSTextCheckingResult
+    fileprivate var input: String
+    fileprivate var nsMatch_: NSTextCheckingResult
     
     init (match: NSTextCheckingResult, input: String) {
         self.nsMatch_ = match
@@ -631,7 +631,7 @@ extension Match {
         
         let range = input.swiftRange(nsMatch_.range)
         assert(range != nil, "An invalid index was given")
-
+        
         return range!
         
     }
